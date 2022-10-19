@@ -12,7 +12,6 @@ function Login() {
   const handleLogin = () => {
     return axios({
       method: "post",
-      // ip: "port",
       url: `/login`,
       data: {
         email,
