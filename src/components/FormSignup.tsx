@@ -1,34 +1,67 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+//JSON 데이터와 File 데이터를 함께 보내기 위해선 Multipart/form-data를 이용하면 될 것!
+
+import React, { useCallback, useState } from "react";
 import axios from "axios";
 
-const FormSignup = () => {
+interface User {
+  email: string;
+  password: string;
+  nickname: string;
+}
+
+function FormSignup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
-  const [profileImg, setProfileImg] = useState("");
+  const [file, setFile] = useState<File | null>(null);
 
-  const handleFormSignup = async () => {
-    let formData = new FormData();
+  //e의 타입 React.ChangeEvent<HTMLInputElement>
+  const handleFile = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files === null) return;
+    if (e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  }, []);
 
-    let signUpRequestDto = {
+  const handleSignup = useCallback(async () => {
+    if (!file) return;
+
+    const formData = new FormData();
+
+    await formData.append("profileImg", file);
+
+    const User: User = {
       email: email,
       password: password,
       nickname: nickname,
     };
 
-    formData.append("signUpRequestDto", JSON.stringify(signUpRequestDto));
-    formData.append("profileImg", profileImg);
+    // for spring server
+    await formData.append(
+      "signUpRequestDto",
+      new Blob([JSON.stringify(User)], { type: "application/json" })
+    );
 
-    await axios({
-      method: "POST",
+    return axios({
+      method: "post",
       url: `/sign-up`,
       data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-  };
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        console.log(email, password, nickname);
+        console.log("서버로 회원가입하기");
+      })
+      .catch((err) => {
+        console.log(err.res);
+      });
+  }, [file]);
 
   return (
-    <>
+    <div>
       <input
         type="text"
         placeholder="Email-ID"
@@ -47,15 +80,9 @@ const FormSignup = () => {
         value={nickname}
         onChange={(e) => setNickname(e.target.value)}
       />
-      <input
-        type="file"
-        name="imgUpload"
-        accept="image/*"
-        onChange={(e) => setProfileImg(e.target.value)}
-      />
-      <button onClick={handleFormSignup}>회원가입</button>
-    </>
+      <input type={"file"} onChange={handleFile} />
+      <button onClick={handleSignup}>회원가입</button>
+    </div>
   );
-};
-
+}
 export default FormSignup;
