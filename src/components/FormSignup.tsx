@@ -13,6 +13,7 @@ function FormSignup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
+  // e // file type 정해주기 - catch error
   const [file, setFile] = useState<File | null>(null);
 
   //e의 타입 React.ChangeEvent<HTMLInputElement>
@@ -37,6 +38,7 @@ function FormSignup() {
     };
 
     // for spring server
+    // e // 블랍과 뒤에 type 명시해주어야함!!!!!! - catch error
     await formData.append(
       "signUpRequestDto",
       new Blob([JSON.stringify(User)], { type: "application/json" })
