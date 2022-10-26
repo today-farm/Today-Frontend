@@ -2,6 +2,9 @@
 
 import React, { useCallback, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
+// import { useCookies } from "react-cookie";
 
 interface User {
   email: string;
@@ -10,10 +13,12 @@ interface User {
 }
 
 function FormSignup() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [nickname, setNickname] = useState("");
-  // e // file type 정해주기 - catch error
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
+  const [isJoinSuccess, setJoinSuccess] = useState<boolean>(false);
+
+  // catch error // file type 정해주기 - catch error
   const [file, setFile] = useState<File | null>(null);
 
   //e의 타입 React.ChangeEvent<HTMLInputElement>
@@ -37,8 +42,7 @@ function FormSignup() {
       nickname: nickname,
     };
 
-    // for spring server
-    // e // 블랍과 뒤에 type 명시해주어야함!!!!!! - catch error
+    // catch error // 블랍과 뒤에 type 명시해주어야함!!!!!!
     await formData.append(
       "signUpRequestDto",
       new Blob([JSON.stringify(User)], { type: "application/json" })
@@ -53,9 +57,9 @@ function FormSignup() {
       },
     })
       .then((res) => {
-        console.log(res);
-        console.log(email, password, nickname);
+        console.log(res.data);
         console.log("서버로 회원가입하기");
+        setJoinSuccess(true);
       })
       .catch((err) => {
         console.log(err.res);
@@ -64,26 +68,36 @@ function FormSignup() {
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Email-ID"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <input
-        type="nickname"
-        placeholder="nickname"
-        value={nickname}
-        onChange={(e) => setNickname(e.target.value)}
-      />
-      <input type={"file"} onChange={handleFile} />
-      <button onClick={handleSignup}>회원가입</button>
+      {!isJoinSuccess && (
+        <>
+          <input
+            type="text"
+            placeholder="Email-ID"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="nickname"
+            placeholder="nickname"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+          />
+          <input type={"file"} onChange={handleFile} />
+          <button onClick={handleSignup}>회원가입</button>
+        </>
+      )}
+      {isJoinSuccess && (
+        <>
+          <p>회원가입을 축하합니다!</p>
+          <Link to="/login">로그인</Link>
+        </>
+      )}
     </div>
   );
 }
