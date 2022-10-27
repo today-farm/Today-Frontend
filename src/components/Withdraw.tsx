@@ -3,7 +3,7 @@ import styled from "styled-components";
 import axios, { AxiosError } from "axios"; // import express = require("express");
 import { useCookies } from "react-cookie";
 
-function DeleteAccount() {
+function Withdraw() {
   const [isOk, setIsOk] = useState<boolean>(false);
   const [password, setPassword] = useState<string>("");
 
@@ -67,57 +67,4 @@ function DeleteAccount() {
   );
 }
 
-export default DeleteAccount;
-
-// import React, { useState } from "react";
-// import axios, { AxiosError } from "axios";
-// import { useCookies } from "react-cookie";
-
-// function Login() {
-//   const [email, setEmail] = useState("");
-//   const [currentPassword, setCurrentPassword] = useState("");
-//   const [cookies, setCookie, removeCookie] = useCookies([
-//     "email",
-//     "access-token",
-//     "password",
-//   ]);
-
-//   const handleLogin = () => {
-//     return axios({
-//       method: "post",
-//       url: `/user/withdraw`,
-//       data: {
-//         currentPassword,
-//       },
-//     })
-//       .then((res) => {
-//         console.log("로그인 성공!");
-//         localStorage.removeItem("refresh_token");
-//         removeCookie("access-token");
-//         removeCookie("email");
-//         removeCookie("password");
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-//   return (
-//     <>
-//       {/* <input
-//         type="text"
-//         placeholder="Email-ID"
-//         value={email}
-//         onChange={(e) => setEmail(e.target.value)}
-//       /> */}
-//       <input
-//         type="password"
-//         placeholder="Password"
-//         value={currentPassword}
-//         onChange={(e) => setCurrentPassword(e.target.value)}
-//       />
-//       <button onClick={handleLogin}>탈퇴</button>
-//     </>
-//   );
-// }
-
-// export default Login;
+export default Withdraw;
