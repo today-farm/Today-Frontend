@@ -23,6 +23,7 @@ function DeleteAccount() {
       method: "post",
       url: `/user/withdraw`,
       data: {
+        // email,
         currentPassword: password,
       },
       headers: {
@@ -32,9 +33,12 @@ function DeleteAccount() {
     })
       .then((res) => {
         removeCookie("accessToken");
-
-        // localStorage.removeItem("refresh-token");
+        removeCookie("email");
+        removeCookie("password");
+        localStorage.removeItem("refresh-token");
         console.log("탈퇴 성공!");
+        console.log(res);
+        // navigator("/");
       })
       .catch((err) => {
         console.log(err);

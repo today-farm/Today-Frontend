@@ -7,7 +7,10 @@ function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoginSuccess, setLoginSuccess] = useState<boolean>(false);
-  const [cookies, setCookie, getCookie] = useCookies<string>(["accessToken"]);
+  const [cookies, setCookie, getCookie] = useCookies<string>([
+    // "email",
+    "accessToken",
+  ]);
   const handleLogin = () => {
     return axios({
       method: "post",
@@ -18,15 +21,19 @@ function Login() {
       },
       headers: {
         "Content-Type": "application/json",
+        // Authorization: `Bearer ${getCookie("access-token")}`,
       },
     })
       .then((res) => {
         console.log("로그인 성공!");
         console.log(res);
+        //let refreshToken = "authorization-refresh";
         let accessToken = res.headers.authorization;
+        let refreshToken = res.headers;
         setCookie("accessToken", accessToken);
-        // TODO: refresh-token 추가해야함
-        // localStorage.setItem("refreshToken", refreshToken);
+        //console.log(typeof res.headers);
+        //localStorage.setItem("refreshToken", res.headers["authorization-refresh"]);
+        //localStorage.setItem("refreshToken", refreshToken);
         setLoginSuccess(true);
       })
       .catch((err) => {
