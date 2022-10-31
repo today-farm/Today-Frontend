@@ -23,10 +23,11 @@ function Login() {
       .then((res) => {
         console.log("로그인 성공!");
         console.log(res);
+        // refreshToken 추가했음
+        let refreshToken: string = res.headers["authorization-refresh"]!;
         let accessToken = res.headers.authorization;
         setCookie("accessToken", accessToken);
-        // TODO: refresh-token 추가해야함
-        // localStorage.setItem("refreshToken", refreshToken);
+        localStorage.setItem("refreshToken", refreshToken);
         setLoginSuccess(true);
       })
       .catch((err) => {
