@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
+//유저 정보 변경
 function EditAccount() {
   const [changePassword, setchangePassword] = useState<string>("");
   const [changeNickname, setchangeNickname] = useState<string>("");
