@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 //유저 정보 변경
@@ -50,10 +49,8 @@ function EditAccount() {
     })
       .then((res) => {
         console.log("수정 성공!");
-        console.log(res.data);
-        console.log(file);
-
-        // navigator("/");
+        // console.log(res.data);
+        // console.log(file);
       })
       .catch((err) => {
         console.log(err);
