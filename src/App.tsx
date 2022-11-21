@@ -11,6 +11,14 @@ import TodayPost from "./components/Today";
 import Edit from "./components/Edit";
 
 function App() {
+  // const [cookies, removeCookie] = useCookies(["accessToken"]);
+  // const [hasCookie, setHasCookie] = useState(false);
+  // useEffect(() => {
+  //   if (cookies.accessToken && cookies.accessToken !== "undefined") {
+  //     setHasCookie(true);
+  //   }
+  // }, [cookies]);
+  //
   return (
     <CookiesProvider>
       <BrowserRouter>
