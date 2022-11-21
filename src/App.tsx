@@ -1,7 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./App.css";
-import styled from "styled-components";
-import axios from "axios";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CookiesProvider, useCookies } from "react-cookie";
 import Login from "./components/Login";
