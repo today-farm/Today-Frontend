@@ -8,17 +8,8 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Withdraw from "./components/Withdraw";
 import TodayPost from "./components/Today";
-import Edit from "./components/Edit";
 
 function App() {
-  // const [cookies, removeCookie] = useCookies(["accessToken"]);
-  // const [hasCookie, setHasCookie] = useState(false);
-  // useEffect(() => {
-  //   if (cookies.accessToken && cookies.accessToken !== "undefined") {
-  //     setHasCookie(true);
-  //   }
-  // }, [cookies]);
-  //
   return (
     <CookiesProvider>
       <BrowserRouter>
@@ -29,7 +20,7 @@ function App() {
           <Route path="/withdraw" element={<Withdraw />} />
           <Route path="/" element={<p>메인페이지입니다.</p>} />
           <Route path="/post" element={<TodayPost />} />
-          <Route path="/edit" element={<Edit />} />
+          {/* <Route path="/edit" element={<Edit />} /> */}
           <Route path="*" element={<p>여기는 없는 페이지입니다😢</p>} />
         </Routes>
       </BrowserRouter>
