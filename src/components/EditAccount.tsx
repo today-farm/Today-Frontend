@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 //유저 정보 변경
