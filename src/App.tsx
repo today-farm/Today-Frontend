@@ -14,7 +14,6 @@ function App() {
     <CookiesProvider>
       <BrowserRouter>
         <Routes>
-          {/* {!hasCookie ? <Route path="/login" /> : <Route path="/" />} */}
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/withdraw" element={<Withdraw />} />
