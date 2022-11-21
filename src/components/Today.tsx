@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { Navigate } from "react-router-dom";
 
 const questions = [
   "오늘 먹은 음식은?",
