@@ -12,7 +12,7 @@ function FriendAdd() {
         
         axios({
             method: "post",
-            url: `add/${friend_ID}`,//받은 입력값으로 url요청 보내기
+            url: `add/${friend_ID}`,//받은 입력값으로 url요청 보내기1
             headers: {
                 Authorization: `Bearer ${cookies.accessToken}`,
               }
