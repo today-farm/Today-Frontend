@@ -10,6 +10,8 @@ import EditAccount from "./components/EditAccount";
 import FriendAdd from "./components/Friendadd";
 import Friendaccpet from "./components/Friendaccpet";
 import Friendrefuse from "./components/Friendrufuse";
+import Frienddelete from "./components/Frienddelete";
+import Friendlist from "./components/Friendlist";
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
           <Route path="/friend/add" element={<FriendAdd />} />
           <Route path="/friend/accept-request" element={<Friendaccpet />} />
           <Route path="/friend/refuse-request" element={<Friendrefuse />} />
+          <Route path="/friend/delete" element={<Frienddelete />} />
+          <Route path="/friend/friends" element={<Friendlist />} />
           
 
           <Route path="/" element={<p>메인페이지입니다.</p>} />
