@@ -27,7 +27,7 @@ function Today() {
   const handleImgFile = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files === null) return;
-      // setImgFile([...imgFile, ...e.target.files]);
+      setImgFile([...imgFile, ...e.target.files]);
     },
     []
   );
@@ -35,7 +35,7 @@ function Today() {
   const handleVideoFile = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files === null) return;
-      // setVideoFile([...videoFile, ...e.target.files]);
+      setVideoFile([...videoFile, ...e.target.files]);
     },
     []
   );

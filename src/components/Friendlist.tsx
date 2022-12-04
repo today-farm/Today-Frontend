@@ -3,7 +3,7 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { Navigate } from "react-router-dom";
 
-function FriendAdd() {
+function Friendlist() {
     const [friend_ID, setfriend_ID] = useState<any>();
     const [cookies, setCookie, getCookie] = useCookies<string>(["accessToken"]);
 
@@ -32,9 +32,9 @@ function FriendAdd() {
         <>
         <input type="text" placeholder="추가하고 싶은 친구의 ID" value ={friend_ID} 
         onChange={(e) => setfriend_ID(e.target.value)}/>
-        <button onClick={friend_add} className="friend-add">친구요청 하기</button>
+        <button onClick={friend_add} className="friend-add">추가</button>
         </>
     )
 }
 
-export default FriendAdd;
+export default Friendlist;
