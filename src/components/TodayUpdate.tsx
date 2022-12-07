@@ -62,7 +62,7 @@ function TodayUpdate() {
   }, []);
 
   const handleImgFile = (
-    index: any,
+    index: number,
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (e.target.files === null) return;
