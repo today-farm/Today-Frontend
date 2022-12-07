@@ -4,7 +4,7 @@ import { useCookies } from "react-cookie";
 import { useParams } from "react-router";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function TodayDetail(): JSX.Element {
+export default function TodayDetail() {
   const [cookies] = useCookies(["accessToken", "password"]);
   const [postQuestions, setPostQuestions] = useState<string[]>([]);
   const [creationDay, setCreationDay] = useState("");

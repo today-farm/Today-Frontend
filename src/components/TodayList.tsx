@@ -6,7 +6,7 @@ export interface IProps {
   detail: { postId: number };
 }
 
-export default function TodayList(props: any) {
+export default function TodayList() {
   const [cookies] = useCookies(["accessToken", "password"]);
   const [todaies, setTodaies] = useState<string[]>([]);
   let userId: string | null = localStorage.getItem("userId");
