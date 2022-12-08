@@ -9,6 +9,7 @@ import TodayPost from "./components/Today";
 import EditAccount from "./components/EditAccount";
 import FriendAdd from "./components/Friendadd";
 
+
 function App() {
   return (
     <CookiesProvider>
@@ -22,6 +23,8 @@ function App() {
           <Route path="/friend/add" element={<FriendAdd />} />
 
           <Route path="/" element={<p>메인페이지입니다.</p>} />
+          <Route path="/post" element={<TodayPost />} />
+          {/* <Route path="/edit" element={<Edit />} /> */}
           <Route path="*" element={<p>여기는 없는 페이지입니다😢</p>} />
         </Routes>
       </BrowserRouter>
