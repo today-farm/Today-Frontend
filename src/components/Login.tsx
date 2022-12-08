@@ -26,6 +26,8 @@ function Login() {
         // refreshToken 추가했음
         let refreshToken: string = res.headers["authorization-refresh"]!;
         let accessToken = res.headers.authorization;
+        let userId = res.data.userId;
+        localStorage.setItem("userId", userId);
         setCookie("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         setLoginSuccess(true);
