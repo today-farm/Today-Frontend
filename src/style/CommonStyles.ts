@@ -86,6 +86,10 @@ export const Input = styled.input`
   font-size: var(--small);
   line-height: 28px;
 
+  &:focus {
+    outline: none;
+  }
+
   ::placeholder {
     font-size: var(--mid);
     color: var(--light-gray);
