@@ -24,11 +24,7 @@ import {
 } from './style';
 import axios from 'axios';
 import { validateNickname } from '../../util/usefulFunctions';
-interface User {
-  email: string;
-  password: string;
-  nickname: string;
-}
+import { User } from '../../Interface';
 
 interface Iprops {
   info: User;
@@ -42,7 +38,6 @@ function Profile(props: Iprops) {
   const [success, setSuccess] = useState<string>('');
   const [previewImg, setPreviewImg] = useState<string>();
   const imageInput = useRef<HTMLInputElement>(null);
-  // const ref = useRef();
   // 버튼클릭시 input태그에 클릭이벤트를 걸어준다.
   const onCickImageUpload = () => {
     imageInput.current?.click();

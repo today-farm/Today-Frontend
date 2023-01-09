@@ -20,23 +20,12 @@ import {
   Success,
 } from '../../../style/CommonStyles';
 import Timer from '../Timer/Timer';
-
-interface User {
-  email: string;
-  password: string;
-  nickname: string;
-}
+import { User, errorData } from '../../Interface';
 
 interface Iprops {
   info: User;
   setInfo: Dispatch<SetStateAction<User>>;
   setOpenProfilePage: Dispatch<SetStateAction<boolean>>;
-}
-
-interface errorData {
-  emailError: string;
-  passwordError: string;
-  passwordCheckError: string;
 }
 
 function EmailPassword(props: Iprops) {

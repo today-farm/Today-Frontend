@@ -1,17 +1,14 @@
 //JSON 데이터와 File 데이터를 함께 보내기 위해선 Multipart/form-data를 이용하면 될 것!
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { ComponentWrapper } from '../../style/CommonStyles';
 import EmailPassword from './EmailPassword/EmailPassword';
 import Profile from './Profile/Profile';
-
-interface User {
-  email: string;
-  password: string;
-  nickname: string;
-}
+import { User } from '../Interface';
 
 function Signup() {
+  const navigate = useNavigate();
   const [info, setInfo] = useState<User>({
     email: '',
     password: '',
@@ -42,8 +39,9 @@ function Signup() {
       },
     })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         console.log('서버로 회원가입하기');
+        navigate('/');
       })
       .catch((err) => {
         console.log(err);
