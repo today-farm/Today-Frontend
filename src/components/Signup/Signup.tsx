@@ -9,19 +9,19 @@ import { User } from '../Interface';
 
 function Signup() {
   const navigate = useNavigate();
+  const [file, setFile] = useState<File | null>(null);
+  const [openProfilePage, setOpenProfilePage] = useState<boolean>(false);
   const [info, setInfo] = useState<User>({
     email: '',
     password: '',
     nickname: '',
   });
-  const [file, setFile] = useState<File | null>(null);
-  const [openProfilePage, setOpenProfilePage] = useState<boolean>(false);
 
   const handleSignup = async () => {
+    const formData = new FormData();
     if (info.nickname === '' || info.email === '' || info.password === '') {
       alert('빠진 정보가 없는지 확인해주세요!');
     }
-    const formData = new FormData();
     if (file) {
       await formData.append('profileImg', file);
     }
