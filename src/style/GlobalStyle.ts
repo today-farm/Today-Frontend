@@ -25,10 +25,7 @@ export const GlobalStyle = createGlobalStyle`
   --more-big: 28px;
   --big: 24px;
   --mid: 20px;
-  --mid-lineHeight: 24px;
   --small: 16px;
-  --small-lineHeight-1: 20px;
-  --small-lineHeight-2: 28px;
   --more-small: 14px;
 }
 
