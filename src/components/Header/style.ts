@@ -12,4 +12,6 @@ export const Title = styled.div`
   margin: 0 auto;
 `;
 
-export const BackIcon = styled.img``;
+export const BackIcon = styled.img`
+  cursor: pointer;
+`;
