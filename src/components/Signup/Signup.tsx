@@ -29,23 +29,10 @@ function Signup() {
       'userSignUpRequestDto',
       new Blob([JSON.stringify(info)], { type: 'application/json' })
     );
-
-    return axios({
-      method: 'post',
-      url: `/sign-up`,
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-      .then((res) => {
-        // console.log(res.data);
-        console.log('서버로 회원가입하기');
-        navigate('/');
+    return axios.post(`/sign-up`, formData, { headers: {'Content-Type': 'multipart/form-data'} })
+      .then(res => {
+        navigate('/login');
       })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   return (

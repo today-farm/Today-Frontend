@@ -1,13 +1,13 @@
 //JSON 데이터와 File 데이터를 함께 보내기 위해선 Multipart/form-data를 이용하면 될 것!
-
 import React, { useState, Dispatch, SetStateAction } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { validateEmail, validatePassword } from '../../util/usefulFunctions';
-import { Header, BackIcon, EmailInput, EmailAuthInput } from './style';
+import { EmailInput, EmailAuthInput } from './style';
 import {
   ComponentWrapper,
   NonActiveButton,
+  ActiveButton,
   NonActiveSmallButton,
   SmallLinkButton,
   Title,
@@ -21,6 +21,7 @@ import {
 } from '../../../style/CommonStyles';
 import Timer from '../Timer/Timer';
 import { User, errorData } from '../../Interface';
+import Header from '../../Header/Header';
 
 interface Iprops {
   info: User;
@@ -31,7 +32,7 @@ interface Iprops {
 function EmailPassword(props: Iprops) {
   const [emailAuth, setEmailAuth] = useState<string>('');
   const [height, setHeight] = useState<number>(220);
-  const [authResult, setAuthResult] = useState<boolean>();
+  const [authResult, setAuthResult] = useState<boolean>(false);
   const [openEmailAuthInput, setOpenEmailAuthInput] = useState<boolean>(false);
   const [startTimer, setStartTimer] = useState<boolean>(false);
   const [emailAuthError, setEmailAuthError] = useState<string>('');
@@ -41,25 +42,16 @@ function EmailPassword(props: Iprops) {
     passwordError: '',
     passwordCheckError: '',
   });
-
   const Checkpassword = (passwordCheck: string) => {
     return passwordCheck === props.info.password;
   };
 
   const handleConfirmEmail = async () => {
     const formData = new FormData();
-
     await formData.append('email', props.info.email);
     await formData.append('authCode', emailAuth);
-
-    return axios({
-      method: 'post',
-      url: `/confirm-email-auth-code`,
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
+    
+    return axios.post(`/confirm-email-auth-code`, formData, { headers: {'Content-Type': 'multipart/form-data'} })
       .then((res) => {
         console.log(res.data.result.authSuccess);
         setAuthResult(res.data.result.authSuccess);
@@ -77,28 +69,25 @@ function EmailPassword(props: Iprops) {
       });
   };
 
-  const handleEmailAuth = async () => {
+  const handleEmailAuth =  async () => {
     const formData = new FormData();
     await formData.append('email', props.info.email);
-
-    return axios({
-      method: 'post',
-      url: `/send-email-auth-code`,
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-      .then((res) => {
-        console.log(res);
-        alert('이메일 요청을 보냈습니다!');
-        setStartTimer(true);
-        setSuccess('');
+    return axios.post(`/send-email-auth-code`, formData , { headers: { 'Content-Type': 'multipart/form-data' }})
+      .then(res => {
+        if (error.emailError === '') {
+          alert('이메일 요청을 보냈습니다!');
+          setStartTimer(true);
+          setSuccess('');
+        }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(err => {
+        setError((prev) => ({
+          ...prev,
+          emailError: err.response.data.message,
+        }));
+      })
   };
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'email') {
@@ -152,13 +141,10 @@ function EmailPassword(props: Iprops) {
       }
     }
   };
-
+  
   return (
     <ComponentWrapper>
-      <Header>
-        <BackIcon alt='icon_back' src='img/icon_back.png'></BackIcon>
-        <Title>회원가입</Title>
-      </Header>
+      <Header title='회원가입' />
       <Inputs height={height}>
         <InputWrapper>
           <Label>이메일</Label>
@@ -221,6 +207,8 @@ function EmailPassword(props: Iprops) {
         onClick={() => {
           if (props.info.email === '' || props.info.password === '') {
             alert('빠진 정보가 없는지 확인해주세요!');
+          } else if (authResult !== true) {
+            alert('이메일 인증을 확인해주세요!');
           } else {
             props.setOpenProfilePage(true);
           }
