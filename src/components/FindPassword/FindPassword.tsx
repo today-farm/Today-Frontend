@@ -16,7 +16,6 @@ export default function FindPassword() {
   const [email, setEmail] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
-
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -26,7 +25,7 @@ export default function FindPassword() {
     if (email !== '') {
       await formData.append('checkEmail', email);
     }
-    return axios.post(`/find-password`,{ formData },{
+    return axios.post(`/find-password`, formData ,{
           headers: { 'Content-Type': 'multipart/form-data' },
         })
       .then(res => {
