@@ -6,7 +6,7 @@ export interface User {
 }
 
 export interface errorData {
-  emailError: string;
+  emailError?: string;
   passwordError: string;
   passwordCheckError: string;
 }
