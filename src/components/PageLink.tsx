@@ -2,13 +2,9 @@
 
 export function PageLink(props :any) {
     
-      
     return (
         <>
-            <img onClick={props.path} 
-            src={props.img_source} alt="" style={{
-                width: `${props.width}`
-            }}/>
+            <props.icon style = {{width: `${props.width}`}} onClick={props.path}></props.icon>
         </>
     )
 }
