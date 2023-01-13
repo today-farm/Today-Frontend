@@ -9,7 +9,7 @@ import Header from '../../Header/Header'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { ProfileImg, DoubleCheckButton, NickNameInput } from './style'
-import ImgInput from '../../ImgInput/ImgInput'
+import ImgInput from '../../FileInput/ImgInput/ImgInput'
 const amazonUrl = `https://todayproject-bucket.s3.ap-northeast-2.amazonaws.com/`
 
 interface User {

@@ -10,8 +10,7 @@ export const Icons = styled.div`
   border-radius: 18px;
   border: 2px solid var(--light-green);
   cursor: pointer;
-
-  & img {
+  s & img {
     cursor: pointer;
   }
 `

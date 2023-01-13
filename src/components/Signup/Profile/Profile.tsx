@@ -17,7 +17,7 @@ import {
 import axios from 'axios'
 import { validateNickname } from '../../util/usefulFunctions'
 import { User } from '../../Interface'
-import ImgInput from '../../ImgInput/ImgInput'
+import ImgInput from '../../FileInput/ImgInput/ImgInput'
 
 interface Iprops {
   info: User
