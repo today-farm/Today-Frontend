@@ -1,0 +1,42 @@
+[
+  {
+    "img": "/img/feeling/happy.png",
+    "name": "happy"
+  },
+  {
+    "img": "/img/feeling/sad.png",
+    "name": "sad"
+  },
+  {
+    "img": "/img/feeling/angry.png",
+    "name": "angry"
+  },
+  {
+    "img": "/img/feeling/excited.png",
+    "name": "excited"
+  },
+  {
+    "img": "/img/feeling/exhausted.png",
+    "name": "exhausted"
+  },
+  {
+    "img": "/img/feeling/surprised.png",
+    "name": "surprised"
+  },
+  {
+    "img": "/img/feeling/proud.png",
+    "name": "proud"
+  },
+  {
+    "img": "/img/feeling/sparkling.png",
+    "name": "sparkling"
+  },
+  {
+    "img": "/img/feeling/cold.png",
+    "name": "cold"
+  },
+  {
+    "img": "/img/feeling/heart.png",
+    "name": "heart"
+  }
+]
