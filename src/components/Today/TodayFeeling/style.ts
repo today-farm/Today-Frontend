@@ -1,10 +1,5 @@
 import styled from 'styled-components'
 
-interface FeelingProps {
-  width: number | undefined
-  opacity: number | undefined
-}
-
 export const FeelingWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,21 +27,26 @@ export const Feelings = styled.div`
   flex-wrap: wrap;
   width: 282px;
   & :nth-child(1) {
-    padding-left: 40px;
+    margin-left: 40px;
   }
   & :nth-child(2) {
-    padding-right: 40px;
+    margin-right: 40px;
   }
   & :nth-child(9) {
-    padding-left: 40px;
+    margin-left: 40px;
   }
   & :nth-child(10) {
-    padding-right: 40px;
+    margin-right: 40px;
   }
 `
 
-export const Feeling = styled.img`
+export const Feeling = styled.button`
+  width: 80px;
+  height: 67px;
+  background-color: transparent;
+  background-repeat: no-repeat;
   margin: 7px;
+  border: none;
   opacity: 0.3;
   margin-bottom: 28px;
   cursor: pointer;

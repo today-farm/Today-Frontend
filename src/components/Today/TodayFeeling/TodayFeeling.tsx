@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import {
@@ -14,11 +14,17 @@ interface Feelings {
   name: string
 }
 
-function TodayFeeling() {
+interface Iprops {
+  setTodayFeeling: Dispatch<SetStateAction<string>>
+  setOpenFeelingPage: Dispatch<SetStateAction<boolean>>
+}
+
+function TodayFeeling(props: Iprops) {
   const [feelings, setFeelings] = useState<any>()
-  const [todayFeeling, setTodayFeeling] = useState<string>('')
-  const handleFeeling = (name: any) => {
-    setTodayFeeling(name)
+
+  const handleFeeling = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    props.setTodayFeeling(e.currentTarget.name)
   }
   useEffect(() => {
     axios
@@ -39,19 +45,25 @@ function TodayFeeling() {
           {feelings?.map((x: any) => {
             return (
               <Feeling
-                src={x.img}
-                alt={x.name}
-                onClick={() => {
-                  handleFeeling(x.name)
+                name={x.name}
+                style={{
+                  backgroundImage: 'url(' + x.img + ')',
+                }}
+                onClick={(e) => {
+                  handleFeeling(e)
                 }}
               />
             )
           })}
         </Feelings>
       </FeelingWrapper>
-      <Link to="/post">
-        <NonActiveButton>다음</NonActiveButton>
-      </Link>
+      <NonActiveButton
+        onClick={() => {
+          props.setOpenFeelingPage(false)
+        }}
+      >
+        다음
+      </NonActiveButton>
     </GreenComponentWrapper>
   )
 }
