@@ -1,5 +1,6 @@
 import React, {
   useCallback,
+  useState,
   useRef,
   useEffect,
   Dispatch,
@@ -7,23 +8,24 @@ import React, {
 } from 'react'
 import { Icontent } from '../../Interface'
 import ImgVideoInput from '../../FileInput/ImgVideoInput/ImgVideoInput'
-import { ContentWrapper, Question, ContentInput } from './style'
+import { ContentWrapper, Question, ContentInput, PreviewImg } from './style'
 
 interface Iprops {
   content: string
   question: string
   number: number
+  previewImg?: string[]
   setContent: Dispatch<SetStateAction<Icontent>>
   handleImgFile: (index: number, e: React.ChangeEvent<HTMLInputElement>) => void
   handleVideoFile: (
     index: number,
     e: React.ChangeEvent<HTMLInputElement>,
   ) => void
+  handleDeleteImage: (id: number, number: number) => void
 }
 
 export default function QuestionAnswer(props: Iprops) {
   const ref = useRef<HTMLTextAreaElement>(null)
-
   useEffect(() => {
     if (ref === null || ref.current === null) {
       return
@@ -48,8 +50,18 @@ export default function QuestionAnswer(props: Iprops) {
         handleImgFile={props.handleImgFile}
         handleVideoFile={props.handleVideoFile}
       />
+      {/* {props.previewImg?.map((x: string) => {
+        return <PreviewImg src={x} />
+      })} */}
+      {props.previewImg?.map((image, id) => (
+        <div key={id}>
+          <PreviewImg src={image} alt={`${image}-${id}`} />
+          <button onClick={() => props.handleDeleteImage(id, props.number)}>
+            x
+          </button>
+        </div>
+      ))}
       <ContentInput
-        // type="text"
         onInput={handleResizeHeight}
         ref={ref}
         maxLength={100}

@@ -4,7 +4,11 @@ import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import QuestionAnswer from './QuestionAnswer/QuestionAnswer'
 import { Icontent, Iquestion } from '../Interface'
-import { getRandomQuestion } from '../util/usefulFunctions'
+import {
+  getRandomQuestion,
+  handleFormData,
+  handlePreviewImgs,
+} from '../util/usefulFunctions'
 import {
   GreenComponentWrapper,
   ActiveButton,
@@ -14,6 +18,12 @@ import Header from '../Header/Header'
 import { todayTime } from './TodayDate'
 import { Contents, SecretWrapper, OpenButton, NonActiveButton } from './style'
 import TodayFeeling from './TodayFeeling/TodayFeeling'
+
+interface IpreviewImg {
+  previewImg1: string[]
+  previewImg2: string[]
+  previewImg3: string[]
+}
 
 export default function Today() {
   const [question, setQuestion] = useState<Iquestion>({
@@ -43,7 +53,12 @@ export default function Today() {
   })
   const [cookies] = useCookies(['accessToken', 'password'])
   const navigate = useNavigate()
-
+  const [previewImg1, setpreviewImg1] = useState<string[]>([])
+  const [previewImg2, setpreviewImg2] = useState<string[]>([])
+  const [previewImg3, setpreviewImg3] = useState<string[]>([])
+  console.log(imgFile1)
+  console.log(previewImg1)
+  console.log(videoFile1)
   const handleImgFile = (
     index: number,
     e: React.ChangeEvent<HTMLInputElement>,
@@ -51,10 +66,36 @@ export default function Today() {
     if (e.target.files === null) return
     if (index === 1) {
       setImgFile1([...imgFile1, ...e.target.files])
+      const imageLists = e.target.files
+      let imageUrlLists = [...previewImg1]
+      handlePreviewImgs(imageLists, imageUrlLists)
+      setpreviewImg1(imageUrlLists)
     } else if (index === 2) {
       setImgFile2([...imgFile2, ...e.target.files])
+      const imageLists = e.target.files
+      let imageUrlLists = [...previewImg2]
+      handlePreviewImgs(imageLists, imageUrlLists)
+      setpreviewImg2(imageUrlLists)
     } else {
       setImgFile3([...imgFile3, ...e.target.files])
+      const imageLists = e.target.files
+      let imageUrlLists = [...previewImg3]
+      handlePreviewImgs(imageLists, imageUrlLists)
+      setpreviewImg3(imageUrlLists)
+    }
+  }
+
+  // X버튼 클릭 시 이미지 삭제
+  const handleDeleteImage = (id: number, number: number) => {
+    if (number === 1) {
+      setpreviewImg1(previewImg1.filter((_, index) => index !== id))
+      setImgFile1(imgFile1.filter((_, index) => index !== id))
+    } else if (number === 2) {
+      setpreviewImg2(previewImg2.filter((_, index) => index !== id))
+      setImgFile2(imgFile2.filter((_, index) => index !== id))
+    } else if (number === 3) {
+      setpreviewImg3(previewImg3.filter((_, index) => index !== id))
+      setImgFile3(imgFile3.filter((_, index) => index !== id))
     }
   }
 
@@ -111,10 +152,11 @@ export default function Today() {
       canPublicAccess: publicAccess,
     }
 
-    await formData.append(
-      'postSaveDto',
-      new Blob([JSON.stringify(TodayPost)], { type: 'application/json' }),
-    )
+    // await formData.append(
+    //   'postSaveDto',
+    //   new Blob([JSON.stringify(TodayPost)], { type: 'application/json' }),
+    // )
+    await handleFormData('postSaveDto', TodayPost)
 
     return axios
       .post(`/post/save`, formData, {
@@ -172,6 +214,8 @@ export default function Today() {
               setContent={setContent}
               handleImgFile={handleImgFile}
               handleVideoFile={handleVideoFile}
+              previewImg={previewImg1}
+              handleDeleteImage={handleDeleteImage}
             />
             <QuestionAnswer
               content="content2"
@@ -180,6 +224,8 @@ export default function Today() {
               setContent={setContent}
               handleImgFile={handleImgFile}
               handleVideoFile={handleVideoFile}
+              previewImg={previewImg2}
+              handleDeleteImage={handleDeleteImage}
             />
             <QuestionAnswer
               content="content3"
@@ -188,6 +234,8 @@ export default function Today() {
               setContent={setContent}
               handleImgFile={handleImgFile}
               handleVideoFile={handleVideoFile}
+              previewImg={previewImg3}
+              handleDeleteImage={handleDeleteImage}
             />
           </Contents>
           <SecretWrapper>

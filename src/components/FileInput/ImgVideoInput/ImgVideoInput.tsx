@@ -43,7 +43,7 @@ function ImgVideoInput(props: Iprops) {
           onChange={(e) => {
             props.handleVideoFile(props.number, e)
           }}
-          accept="image/*"
+          accept="video/*"
           style={{ display: 'none' }}
           ref={imageInput}
           multiple

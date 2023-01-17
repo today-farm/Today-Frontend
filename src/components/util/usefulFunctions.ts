@@ -24,3 +24,27 @@ const questions = [
 export const getRandomQuestion = (): string => {
   return questions[Math.floor(Math.random() * questions.length)]
 }
+
+export const handlePreviewImgs = (
+  imageLists: FileList,
+  imageUrlLists: string[],
+) => {
+  // const imageLists = e.target.files
+  // let imageUrlLists = [...fileNum]
+  for (let i = 0; i < imageLists.length; i++) {
+    const currentImageUrl = URL.createObjectURL(imageLists[i])
+    imageUrlLists.push(currentImageUrl)
+  }
+  if (imageUrlLists.length > 3) {
+    imageUrlLists = imageUrlLists.slice(0, 3)
+  }
+  //fileName(imageUrlLists)
+}
+
+export const handleFormData = (key: string, value: any) => {
+  const formData = new FormData()
+  formData.append(
+    key,
+    new Blob([JSON.stringify(value)], { type: 'application/json' }),
+  )
+}

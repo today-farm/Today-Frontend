@@ -34,7 +34,7 @@ export const ContentInput = styled.textarea`
   line-height: 31px;
   width: 100%;
   padding: 0 10px;
-  margin-top: 20px;
+  margin: 20px 0 15px 0;
   border: none;
   resize: none;
   font-size: var(--mid);
@@ -46,4 +46,10 @@ export const ContentInput = styled.textarea`
     font-size: var(--mid);
     color: var(--light-gray);
   }
+`
+
+export const PreviewImg = styled.img`
+  width: 286px;
+  height: 190px;
+  border-radius: 20px;
 `
