@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
 
 :root {
@@ -74,4 +74,4 @@ html, body, div, span, applet, object, iframe,
   a {
     text-decoration: none;
   }
-`;
+`

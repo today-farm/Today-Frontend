@@ -19,7 +19,6 @@ interface User {
 
 function Account() {
   const [cookies] = useCookies(['accessToken'])
-  const imageInput = useRef<HTMLInputElement>(null)
   const [info, setInfo] = useState<User>({
     nickname: '',
     img: '',

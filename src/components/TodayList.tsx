@@ -1,35 +1,35 @@
-import React, { useCallback, useState, useEffect } from "react";
-import axios from "axios";
-import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
-export interface IProps {
-  detail: { postId: number };
-}
+import React, { useCallback, useState, useEffect } from 'react'
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
+import { Link } from 'react-router-dom'
 
 export default function TodayList() {
-  const [cookies] = useCookies(["accessToken", "password"]);
-  const [todaies, setTodaies] = useState<string[]>([]);
-  let userId: string | null = localStorage.getItem("userId");
-  let month = 12;
+  const [cookies] = useCookies(['accessToken', 'password'])
+  const [todaies, setTodaies] = useState<string[]>([])
+  let userId: string | null = localStorage.getItem('userId')
+  let month = '1'
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`post/${userId}/${month}`, {
-          headers: {
-            Authorization: `Bearer ${cookies.accessToken}`,
+        const res = await axios.get(
+          `post/find-user-and-month/${userId}/${month}`,
+          {
+            headers: {
+              Authorization: `Bearer ${cookies.accessToken}`,
+            },
           },
-        });
-        setTodaies(res.data.result.postInfoDtos);
-        console.log(res.data.result.postInfoDtos);
+        )
+        setTodaies(res.data.result.postInfoDtos)
+        console.log(res.data.result.postInfoDtos)
       } catch (e) {
-        console.log(e);
+        console.log(e)
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   if (!todaies) {
-    return null;
+    return null
   }
   return (
     <div>
@@ -39,5 +39,5 @@ export default function TodayList() {
         </Link>
       ))}
     </div>
-  );
+  )
 }
