@@ -20,7 +20,30 @@ export const Question = styled.div`
   font-size: var(--big);
 `
 
-export const ContentInput = styled(Input)`
-  margin: 20px 0;
+export const ContentInput = styled.textarea`
+  background-attachment: local;
+  background-image: linear-gradient(to right, white 10px, transparent 10px),
+    linear-gradient(to left, white 10px, transparent 10px),
+    repeating-linear-gradient(
+      white,
+      white 30px,
+      var(--light-gray) 30px,
+      var(--light-gray) 31px,
+      white 31px
+    );
+  line-height: 31px;
+  width: 100%;
+  padding: 0 10px;
+  margin-top: 20px;
+  border: none;
+  resize: none;
+  font-size: var(--mid);
   text-align: center;
+  &:focus {
+    outline: none;
+  }
+  ::placeholder {
+    font-size: var(--mid);
+    color: var(--light-gray);
+  }
 `
