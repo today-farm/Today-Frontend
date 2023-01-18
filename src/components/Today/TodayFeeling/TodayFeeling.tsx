@@ -7,7 +7,7 @@ import {
 } from '../../../style/CommonStyles'
 import Header from '../../Header/Header'
 import { FeelingWrapper, Title, Feelings, Feeling } from './style'
-import { todayTime } from '../TodayDate'
+import { todayYearMonthDate } from '../TodayDate'
 
 interface Feelings {
   img: string
@@ -34,7 +34,7 @@ function TodayFeeling(props: Iprops) {
 
   return (
     <GreenComponentWrapper>
-      <Header title={todayTime()} />
+      <Header title={todayYearMonthDate()} />
       <FeelingWrapper>
         <Title>
           오늘의 기분을

@@ -11,7 +11,7 @@ import {
   Label,
 } from '../../style/CommonStyles'
 import Header from '../Header/Header'
-import { todayTime } from './TodayDate'
+import { todayYearMonthDate } from './TodayDate'
 import { Contents, SecretWrapper, OpenButton, NonActiveButton } from './style'
 import TodayFeeling from './TodayFeeling/TodayFeeling'
 
@@ -227,7 +227,7 @@ export default function Today() {
         />
       ) : (
         <GreenComponentWrapper>
-          <Header title={todayTime()} post={setOpenFeelingPage} />
+          <Header title={todayYearMonthDate()} post={setOpenFeelingPage} />
           <Contents>
             <QuestionAnswer
               content="content1"
