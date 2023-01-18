@@ -53,3 +53,8 @@ export const PreviewImg = styled.img`
   height: 190px;
   border-radius: 20px;
 `
+export const PreviewVideo = styled.video`
+  width: 286px;
+  height: 190px;
+  border-radius: 20px;
+`

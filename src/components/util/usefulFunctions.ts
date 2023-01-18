@@ -25,7 +25,7 @@ export const getRandomQuestion = (): string => {
   return questions[Math.floor(Math.random() * questions.length)]
 }
 
-export const handlePreviewImgs = (
+export const handlePreviewFiles = (
   imageLists: FileList,
   imageUrlLists: string[],
 ) => {

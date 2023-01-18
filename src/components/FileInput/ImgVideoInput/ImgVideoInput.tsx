@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { Label } from '../../../style/CommonStyles'
 import { Icons, FileInput } from './style'
+import FileInputs from '../FileInput'
 
 interface Iprops {
   number: number
@@ -19,7 +20,21 @@ function ImgVideoInput(props: Iprops) {
 
   return (
     <Icons>
-      <FileInput>
+      <FileInputs
+        handleFunction={props.handleImgFile}
+        number={props.number}
+        accept={'image/*'}
+        icon={'img/icon_photo2.png'}
+        label={'사진 추가'}
+      />
+      <FileInputs
+        handleFunction={props.handleVideoFile}
+        number={props.number}
+        accept={'video/*'}
+        icon={'img/icon_video.png'}
+        label={'동영상 추가'}
+      />
+      {/* <FileInput>
         <input
           type="file"
           onChange={(e) => {
@@ -54,7 +69,7 @@ function ImgVideoInput(props: Iprops) {
           onClick={onCickImageUpload}
         />
         <Label>동영상 추가</Label>
-      </FileInput>
+      </FileInput> */}
     </Icons>
   )
 }

@@ -4,11 +4,7 @@ import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import QuestionAnswer from './QuestionAnswer/QuestionAnswer'
 import { Icontent, Iquestion } from '../Interface'
-import {
-  getRandomQuestion,
-  handleFormData,
-  handlePreviewImgs,
-} from '../util/usefulFunctions'
+import { getRandomQuestion, handlePreviewFiles } from '../util/usefulFunctions'
 import {
   GreenComponentWrapper,
   ActiveButton,
@@ -56,9 +52,10 @@ export default function Today() {
   const [previewImg1, setpreviewImg1] = useState<string[]>([])
   const [previewImg2, setpreviewImg2] = useState<string[]>([])
   const [previewImg3, setpreviewImg3] = useState<string[]>([])
-  console.log(imgFile1)
-  console.log(previewImg1)
-  console.log(videoFile1)
+  const [previewVideo1, setPreviewVideo1] = useState<string[]>([])
+  const [previewVideo2, setPreviewVideo2] = useState<string[]>([])
+  const [previewVideo3, setPreviewVideo3] = useState<string[]>([])
+
   const handleImgFile = (
     index: number,
     e: React.ChangeEvent<HTMLInputElement>,
@@ -68,34 +65,47 @@ export default function Today() {
       setImgFile1([...imgFile1, ...e.target.files])
       const imageLists = e.target.files
       let imageUrlLists = [...previewImg1]
-      handlePreviewImgs(imageLists, imageUrlLists)
+      handlePreviewFiles(imageLists, imageUrlLists)
       setpreviewImg1(imageUrlLists)
     } else if (index === 2) {
       setImgFile2([...imgFile2, ...e.target.files])
       const imageLists = e.target.files
       let imageUrlLists = [...previewImg2]
-      handlePreviewImgs(imageLists, imageUrlLists)
+      handlePreviewFiles(imageLists, imageUrlLists)
       setpreviewImg2(imageUrlLists)
     } else {
       setImgFile3([...imgFile3, ...e.target.files])
       const imageLists = e.target.files
       let imageUrlLists = [...previewImg3]
-      handlePreviewImgs(imageLists, imageUrlLists)
+      handlePreviewFiles(imageLists, imageUrlLists)
       setpreviewImg3(imageUrlLists)
     }
   }
 
   // X버튼 클릭 시 이미지 삭제
-  const handleDeleteImage = (id: number, number: number) => {
-    if (number === 1) {
-      setpreviewImg1(previewImg1.filter((_, index) => index !== id))
-      setImgFile1(imgFile1.filter((_, index) => index !== id))
-    } else if (number === 2) {
-      setpreviewImg2(previewImg2.filter((_, index) => index !== id))
-      setImgFile2(imgFile2.filter((_, index) => index !== id))
-    } else if (number === 3) {
-      setpreviewImg3(previewImg3.filter((_, index) => index !== id))
-      setImgFile3(imgFile3.filter((_, index) => index !== id))
+  const handleDeleteImage = (id: number, number: number, img?: string) => {
+    if (img) {
+      if (number === 1) {
+        setpreviewImg1(previewImg1.filter((_, index) => index !== id))
+        setImgFile1(imgFile1.filter((_, index) => index !== id))
+      } else if (number === 2) {
+        setpreviewImg2(previewImg2.filter((_, index) => index !== id))
+        setImgFile2(imgFile2.filter((_, index) => index !== id))
+      } else if (number === 3) {
+        setpreviewImg3(previewImg3.filter((_, index) => index !== id))
+        setImgFile3(imgFile3.filter((_, index) => index !== id))
+      }
+    } else {
+      if (number === 1) {
+        setPreviewVideo1(previewVideo1.filter((_, index) => index !== id))
+        setVideoFile1(videoFile1.filter((_, index) => index !== id))
+      } else if (number === 2) {
+        setPreviewVideo2(previewVideo2.filter((_, index) => index !== id))
+        setVideoFile2(videoFile2.filter((_, index) => index !== id))
+      } else if (number === 3) {
+        setPreviewVideo3(previewVideo3.filter((_, index) => index !== id))
+        setVideoFile3(videoFile3.filter((_, index) => index !== id))
+      }
     }
   }
 
@@ -106,10 +116,22 @@ export default function Today() {
     if (e.target.files === null) return
     if (index === 1) {
       setVideoFile1([...videoFile1, ...e.target.files])
+      const imageLists = e.target.files
+      let imageUrlLists = [...previewVideo1]
+      handlePreviewFiles(imageLists, imageUrlLists)
+      setPreviewVideo1(imageUrlLists)
     } else if (index === 2) {
       setVideoFile2([...videoFile2, ...e.target.files])
+      const imageLists = e.target.files
+      let imageUrlLists = [...previewVideo2]
+      handlePreviewFiles(imageLists, imageUrlLists)
+      setPreviewVideo2(imageUrlLists)
     } else {
       setVideoFile3([...videoFile3, ...e.target.files])
+      const imageLists = e.target.files
+      let imageUrlLists = [...previewVideo3]
+      handlePreviewFiles(imageLists, imageUrlLists)
+      setPreviewVideo3(imageUrlLists)
     }
   }
 
@@ -152,11 +174,11 @@ export default function Today() {
       canPublicAccess: publicAccess,
     }
 
-    // await formData.append(
-    //   'postSaveDto',
-    //   new Blob([JSON.stringify(TodayPost)], { type: 'application/json' }),
-    // )
-    await handleFormData('postSaveDto', TodayPost)
+    await formData.append(
+      'postSaveDto',
+      new Blob([JSON.stringify(TodayPost)], { type: 'application/json' }),
+    )
+    //await handleFormData('postSaveDto', TodayPost)
 
     return axios
       .post(`/post/save`, formData, {
@@ -215,6 +237,7 @@ export default function Today() {
               handleImgFile={handleImgFile}
               handleVideoFile={handleVideoFile}
               previewImg={previewImg1}
+              previewVideo={previewVideo1}
               handleDeleteImage={handleDeleteImage}
             />
             <QuestionAnswer
@@ -225,6 +248,7 @@ export default function Today() {
               handleImgFile={handleImgFile}
               handleVideoFile={handleVideoFile}
               previewImg={previewImg2}
+              previewVideo={previewVideo2}
               handleDeleteImage={handleDeleteImage}
             />
             <QuestionAnswer
@@ -235,6 +259,7 @@ export default function Today() {
               handleImgFile={handleImgFile}
               handleVideoFile={handleVideoFile}
               previewImg={previewImg3}
+              previewVideo={previewVideo3}
               handleDeleteImage={handleDeleteImage}
             />
           </Contents>

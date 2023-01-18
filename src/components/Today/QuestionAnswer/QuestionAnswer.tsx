@@ -8,20 +8,27 @@ import React, {
 } from 'react'
 import { Icontent } from '../../Interface'
 import ImgVideoInput from '../../FileInput/ImgVideoInput/ImgVideoInput'
-import { ContentWrapper, Question, ContentInput, PreviewImg } from './style'
+import {
+  ContentWrapper,
+  Question,
+  ContentInput,
+  PreviewImg,
+  PreviewVideo,
+} from './style'
 
 interface Iprops {
   content: string
   question: string
   number: number
-  previewImg?: string[]
   setContent: Dispatch<SetStateAction<Icontent>>
   handleImgFile: (index: number, e: React.ChangeEvent<HTMLInputElement>) => void
   handleVideoFile: (
     index: number,
     e: React.ChangeEvent<HTMLInputElement>,
   ) => void
-  handleDeleteImage: (id: number, number: number) => void
+  previewImg: string[]
+  previewVideo: string[]
+  handleDeleteImage: (id: number, number: number, img?: string) => void
 }
 
 export default function QuestionAnswer(props: Iprops) {
@@ -56,6 +63,16 @@ export default function QuestionAnswer(props: Iprops) {
       {props.previewImg?.map((image, id) => (
         <div key={id}>
           <PreviewImg src={image} alt={`${image}-${id}`} />
+          <button
+            onClick={() => props.handleDeleteImage(id, props.number, 'img')}
+          >
+            x
+          </button>
+        </div>
+      ))}
+      {props.previewVideo?.map((video, id) => (
+        <div key={id}>
+          <PreviewVideo src={video} controls />
           <button onClick={() => props.handleDeleteImage(id, props.number)}>
             x
           </button>
