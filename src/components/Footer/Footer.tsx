@@ -11,12 +11,12 @@ function Footer() {
     <FooterWrapper>
       <FarmIconWrapper>
         <FarmIcon>
-          <img src="/img/icon_farm.png" />
+          <img src="/img/icons/icon_farm.png" />
         </FarmIcon>
       </FarmIconWrapper>
       <IconWrapper>
-        <Icon src="/img/icon_calendar.png" />
-        <Icon src="/img/icon_friends2.png" />
+        <Icon src="/img/icons/icon_calendar.png" />
+        <Icon src="/img/icons/icon_friends2.png" />
       </IconWrapper>
     </FooterWrapper>
   )

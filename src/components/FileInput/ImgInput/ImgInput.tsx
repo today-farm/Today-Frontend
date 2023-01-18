@@ -23,13 +23,13 @@ function ImgInput(props: Iprops) {
         />
         <img
           alt="profile"
-          src="img/icon_photo.png"
+          src="img/icons/icon_photo.png"
           onClick={onCickImageUpload}
         />
         <Line>|</Line>
         <img
           alt="profile"
-          src="img/icon_delete.png"
+          src="img/icons/icon_delete.png"
           onClick={props.handleRemoveImg}
         />
       </Icons>

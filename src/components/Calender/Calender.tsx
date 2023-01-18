@@ -115,19 +115,19 @@ function Calender() {
         <Menu>
           <span>로고</span>
           <Link to="/mypage">
-            <img src="img/icon_mypage.png" />
+            <img src="img/icons/icon_mypage.png" />
           </Link>
         </Menu>
         <DateWrapper>
           <img
-            src="img/calendar_icon_left.png"
+            src="img/icons/calendar_icon_left.png"
             onClick={() => {
               setMoment(getMoment.clone().subtract(1, 'month'))
             }}
           />
           <Title>{today.format('YYYY년 MM월')}</Title>
           <img
-            src="img/calendar_icon_right.png"
+            src="img/icons/calendar_icon_right.png"
             onClick={() => {
               setMoment(getMoment.clone().add(1, 'month'))
             }}

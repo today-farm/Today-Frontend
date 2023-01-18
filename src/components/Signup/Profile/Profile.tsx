@@ -89,7 +89,7 @@ function Profile(props: Iprops) {
       </Header>
       <ProfileWrapper>
         <ProfileImg
-          src={previewImg ? previewImg : 'img/icon_profile.png'}
+          src={previewImg ? previewImg : 'img/icons/icon_profile.png'}
           alt="프로필 이미지"
         />
         <ImgInput handleFile={handleFile} handleRemoveImg={handleRemoveImg} />
