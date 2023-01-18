@@ -18,6 +18,7 @@ export const GreenComponentWrapper = styled(ComponentWrapper)`
 export const Title = styled.div`
   font-size: var(--more-big);
   text-align: center;
+  margin: 0 20px;
 `
 
 export const NonActiveButton = styled.div`

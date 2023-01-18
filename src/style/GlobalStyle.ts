@@ -4,7 +4,7 @@ export const GlobalStyle = createGlobalStyle`
 :root {
   /*       [ color ]     */
   --black: #1D1F00;
-  --light-gray: rgba(29, 31, 0, 0.2);
+  --light-gray: #e8e9e6;
   --dark-green: #41731D;
   --green: #79A938;
   --mid-green: #BCDD83;
@@ -57,7 +57,7 @@ html, body, div, span, applet, object, iframe,
   body {
     line-height: 1;
   }
-  ol, ul {
+  ol, ul,li {
     list-style: none;
   }
   blockquote, q {

@@ -10,10 +10,10 @@ import EditAccount from './components/EditAccount'
 import FriendAdd from './components/Friendadd'
 import Account from './components/MyPage/Account/Account'
 import FindPassword from './components/FindPassword/FindPassword'
-import TodayFeeling from './components/Today/TodayFeeling/TodayFeeling'
 import ChangePassword from './components/MyPage/ChangePassword/ChangePassword'
 import TodayList from './components/TodayList'
 import TodayDetail from './components/TodayDetail'
+import Calender from './components/Calender/Calender'
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/calender" element={<Calender />} />
         <Route path="/change/password" element={<ChangePassword />} />
         <Route path="/login" element={<Login />} />
         <Route path="/withdraw" element={<Withdraw />} />
