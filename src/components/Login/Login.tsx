@@ -68,8 +68,8 @@ function Login() {
         headers: { 'Content-Type': 'application/json' },
       })
       .then((res) => {
-        let refreshToken: string = res.headers['authorization-refresh']!
-        let accessToken = res.headers.authorization
+        let refreshToken: string = res.headers['Authorization-refresh']!
+        let accessToken = res.headers.Authorization
         let userId = res.data.userId
         localStorage.setItem('userId', userId)
         setCookie('accessToken', accessToken)
@@ -79,7 +79,8 @@ function Login() {
           emailError: '',
           passwordError: '',
         }))
-        navigate('/')
+        // navigate('/')
+        console.log(res)
       })
       .catch((err) => {
         console.log(err)
