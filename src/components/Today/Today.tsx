@@ -14,6 +14,7 @@ import Header from '../Header/Header'
 import { todayYearMonthDate } from './TodayDate'
 import { Contents, SecretWrapper, OpenButton, NonActiveButton } from './style'
 import TodayFeeling from './TodayFeeling/TodayFeeling'
+import Modal from './Modal/Modal'
 import { API_URL } from '../../constant'
 interface IpreviewImg {
   previewImg1: string[]
@@ -55,7 +56,7 @@ export default function Today() {
   const [previewVideo1, setPreviewVideo1] = useState<string[]>([])
   const [previewVideo2, setPreviewVideo2] = useState<string[]>([])
   const [previewVideo3, setPreviewVideo3] = useState<string[]>([])
-
+  const [openModal, setOpenModal] = useState<boolean>(false)
   const handleImgFile = (
     index: number,
     e: React.ChangeEvent<HTMLInputElement>,
@@ -287,7 +288,17 @@ export default function Today() {
               </NonActiveButton>
             </div>
           </SecretWrapper>
-          <ActiveButton onClick={handleToday}>기록 저장</ActiveButton>
+          {/* <ActiveButton onClick={handleToday}>기록 저장</ActiveButton> */}
+          <ActiveButton
+            onClick={() => {
+              setOpenModal(true)
+            }}
+          >
+            기록 저장
+          </ActiveButton>
+          {openModal && (
+            <Modal setOpenModal={setOpenModal} handleToday={handleToday} />
+          )}
         </GreenComponentWrapper>
       )}
     </>
