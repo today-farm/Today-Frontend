@@ -189,7 +189,7 @@ export default function Today() {
       })
       .then((res) => {
         console.log('글 등록 성공!')
-        navigate('/todaylist')
+        navigate('/success')
       })
       .catch((err) => {
         console.log(err)
@@ -288,7 +288,6 @@ export default function Today() {
               </NonActiveButton>
             </div>
           </SecretWrapper>
-          {/* <ActiveButton onClick={handleToday}>기록 저장</ActiveButton> */}
           <ActiveButton
             onClick={() => {
               setOpenModal(true)
