@@ -1,9 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {
-  GreenComponentWrapper,
-  ActiveBottomButton,
-} from '../../../style/CommonStyles'
+import { GreenComponentWrapper } from '../../../style/CommonStyles'
 import { ContentsWrapper, SuccessImg, Text, LinkButton } from './style'
 
 function SuccessPost() {
