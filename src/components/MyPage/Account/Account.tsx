@@ -10,7 +10,7 @@ import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { ProfileImg, DoubleCheckButton, NickNameInput } from './style'
 import ImgInput from '../../FileInput/ImgInput/ImgInput'
-const amazonUrl = `https://todayproject-bucket.s3.ap-northeast-2.amazonaws.com/`
+import { API_URL, IMG_URL } from '../../../constant'
 
 interface User {
   nickname: string
@@ -31,7 +31,7 @@ function Account() {
 
   useEffect(() => {
     axios
-      .get(`/user/find-my-info`, {
+      .get(`${API_URL}/user/find-my-info`, {
         headers: { Authorization: `Bearer ${cookies.accessToken}` },
       })
       .then((res) => {
@@ -69,7 +69,7 @@ function Account() {
     const formData = new FormData()
     await formData.append('changeNickname', changeNickname)
     return axios
-      .post(`/sign-up/nickname-duplicate-check`, formData, {
+      .post(`${API_URL}/sign-up/nickname-duplicate-check`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((res) => {
@@ -90,14 +90,14 @@ function Account() {
     }
     if (changeNickname !== '') {
       await formData.append(
-        'userUpdateMyInfoRequestDto',
+        'userUpdateRequestDto',
         new Blob([JSON.stringify(changeNickname)], {
           type: 'application/json',
         }),
       )
     }
     return axios
-      .patch(`/user/update-my-info`, formData, {
+      .patch(`${API_URL}/user/update-my-info`, formData, {
         headers: { Authorization: `Bearer ${cookies.accessToken}` },
       })
       .then((res) => {
@@ -114,7 +114,7 @@ function Account() {
     <ComponentWrapper>
       <Header title="내 정보 수정" />
       <ProfileImg
-        src={previewImg ? previewImg : `${amazonUrl}${info.img}`}
+        src={previewImg ? previewImg : `${IMG_URL}${info.img}`}
         alt="프로필 이미지"
       />
       <ImgInput handleFile={handleFile} handleRemoveImg={handleRemoveImg} />

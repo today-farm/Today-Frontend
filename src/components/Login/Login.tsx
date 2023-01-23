@@ -13,7 +13,7 @@ import {
   Error,
 } from '../../style/CommonStyles'
 import { Links, LoginInputs, Line } from './style'
-
+import { API_URL } from '../../constant'
 interface User {
   email: string
   password: string
@@ -64,7 +64,9 @@ function Login() {
 
   const handleLogin = () => {
     return axios
-      .post(`/login`, info, { headers: { 'Content-Type': 'application/json' } })
+      .post(`${API_URL}/login`, info, {
+        headers: { 'Content-Type': 'application/json' },
+      })
       .then((res) => {
         let refreshToken: string = res.headers['authorization-refresh']!
         let accessToken = res.headers.authorization

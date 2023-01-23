@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { ActiveButton } from '../../../style/CommonStyles';
+import styled from 'styled-components'
+import { ActiveButton } from '../../../style/CommonStyles'
 
 export const ModalBackground = styled.div`
   position: fixed;
@@ -11,7 +11,7 @@ export const ModalBackground = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(29, 31, 0, 0.8);
-`;
+`
 
 export const ModalWrapper = styled.div`
   position: absolute;
@@ -24,19 +24,19 @@ export const ModalWrapper = styled.div`
   padding-bottom: 30px;
   border-radius: 30px;
   background-color: #fff;
-`;
+`
 
 export const CloseButton = styled.img`
   align-self: flex-end;
   margin-bottom: 10px;
-`;
+`
 
 export const InfoMsg = styled.div`
   margin: 30px 0;
   font-size: var(--mid);
   text-align: center;
-`;
+`
 
 export const PasswordButton = styled(ActiveButton)`
   width: 286px;
-`;
+`

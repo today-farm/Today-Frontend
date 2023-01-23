@@ -14,7 +14,7 @@ import Header from '../Header/Header'
 import { todayYearMonthDate } from './TodayDate'
 import { Contents, SecretWrapper, OpenButton, NonActiveButton } from './style'
 import TodayFeeling from './TodayFeeling/TodayFeeling'
-
+import { API_URL } from '../../constant'
 interface IpreviewImg {
   previewImg1: string[]
   previewImg2: string[]
@@ -178,10 +178,9 @@ export default function Today() {
       'postSaveDto',
       new Blob([JSON.stringify(TodayPost)], { type: 'application/json' }),
     )
-    //await handleFormData('postSaveDto', TodayPost)
 
     return axios
-      .post(`/post/save`, formData, {
+      .post(`${API_URL}/post/save`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${cookies.accessToken}`,
