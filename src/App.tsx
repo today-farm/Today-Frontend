@@ -6,7 +6,6 @@ import Signup from './components/Signup/Signup'
 import MyPage from './components/MyPage/MyPage'
 import Withdraw from './components/Withdraw'
 import TodayPost from './components/Today/Today'
-import EditAccount from './components/EditAccount'
 import FriendAdd from './components/Friendadd'
 import Account from './components/MyPage/Account/Account'
 import FindPassword from './components/FindPassword/FindPassword'
@@ -30,7 +29,6 @@ function App() {
         <Route path="/todaylist" element={<TodayList />} />
         <Route path="/todaylist/:todayId" element={<TodayDetail />} />
         <Route path="/post" element={<TodayPost />} />
-        <Route path="/edit" element={<EditAccount />} />
         <Route path="/friend/add" element={<FriendAdd />} />
         <Route path="/" element={<MainFarm />} />
         <Route path="/post" element={<TodayPost />} />
