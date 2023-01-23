@@ -63,33 +63,37 @@ function Login() {
   }
 
   const handleLogin = () => {
-    return axios
-      .post(`${API_URL}/login`, info, {
-        headers: { 'Content-Type': 'application/json' },
-      })
-      .then((res) => {
-        let refreshToken: string = res.headers['Authorization-refresh']!
-        let accessToken = res.headers.Authorization
-        let userId = res.data.userId
-        localStorage.setItem('userId', userId)
-        setCookie('accessToken', accessToken)
-        localStorage.setItem('refreshToken', refreshToken)
-        setError((prev) => ({
-          ...prev,
-          emailError: '',
-          passwordError: '',
-        }))
-        // navigate('/')
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log(err)
-        setError((prev) => ({
-          ...prev,
-          emailError: '가입되지 않은 이메일이에요! 다시 확인해 주세요.',
-          passwordError: '비밀번호가 잘못되었어요! 다시 확인해 주세요.',
-        }))
-      })
+    return (
+      axios
+        .post(`${API_URL}/login`, info, {
+          // headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
+        })
+        .then((res) => {
+          let refreshToken: string = res.headers['Authorization-refresh']!
+          let accessToken = res.headers.Authorization
+          let userId = res.data.userId
+          localStorage.setItem('userId', userId)
+          setCookie('accessToken', accessToken)
+          localStorage.setItem('refreshToken', refreshToken)
+          setError((prev) => ({
+            ...prev,
+            emailError: '',
+            passwordError: '',
+          }))
+          // navigate('/')
+          console.log(res)
+        })
+        // .then((res) => console.log('두번째 then ' + res))
+        .catch((err) => {
+          console.log(err)
+          setError((prev) => ({
+            ...prev,
+            emailError: '가입되지 않은 이메일이에요! 다시 확인해 주세요.',
+            passwordError: '비밀번호가 잘못되었어요! 다시 확인해 주세요.',
+          }))
+        })
+    )
   }
 
   return (
