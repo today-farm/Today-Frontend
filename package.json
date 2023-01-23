@@ -15,6 +15,7 @@
     "express": "^4.18.2",
     "graphql-hooks": "^6.0.3",
     "http-proxy-middleware": "^2.0.6",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
@@ -50,7 +51,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://43.200.155.190:8080",
+  "proxy": "http://43.200.198.172:8080/",
   "devDependencies": {
     "@types/styled-components": "^5.1.26"
   }
