@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import {
   FooterWrapper,
   IconWrapper,
@@ -24,7 +25,9 @@ function Footer(props: Iprops) {
       )}
       <FarmIconWrapper>
         {props.main ? (
-          <RabbitImg src="/img/character/mainRabbit.png" />
+          <Link to="/post">
+            <RabbitImg src="/img/character/mainRabbit.png" />
+          </Link>
         ) : (
           <FarmIcon>
             <img src="/img/icons/icon_farm.png" />
