@@ -3,9 +3,8 @@ import styled from 'styled-components'
 export const CalenderHeader = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   width: 100%;
-  padding: 50px 20px 20px 20px;
+  padding-bottom: 30px;
 `
 
 export const DateWrapper = styled.div`
@@ -13,17 +12,7 @@ export const DateWrapper = styled.div`
   justify-content: center;
 `
 
-export const Menu = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 30px;
-`
-
 export const CalenderWrapper = styled.div`
-  /* width: 342px;
-  height: 432px; */
-  /* padding: 10px; */
   padding: 30px 15px;
   background-color: #fff;
   border-radius: 30px;

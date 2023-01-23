@@ -24,14 +24,14 @@ function ImgVideoInput(props: Iprops) {
         handleFunction={props.handleImgFile}
         number={props.number}
         accept={'image/*'}
-        icon={'img/icon_photo2.png'}
+        icon={'img/icons/icon_photo2.png'}
         label={'사진 추가'}
       />
       <FileInputs
         handleFunction={props.handleVideoFile}
         number={props.number}
         accept={'video/*'}
-        icon={'img/icon_video.png'}
+        icon={'img/icons/icon_video.png'}
         label={'동영상 추가'}
       />
       {/* <FileInput>

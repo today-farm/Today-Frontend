@@ -12,6 +12,7 @@ export const IconWrapper = styled.div`
   background-color: var(--light-green);
   display: flex;
   align-items: center;
+  z-index: 10;
 `
 
 export const Icon = styled.img`
@@ -40,4 +41,29 @@ export const FarmIcon = styled.div`
   margin-bottom: 40px;
   border-radius: 50%;
   background-color: var(--light-green);
+`
+
+export const RabbitImg = styled.img`
+  margin-bottom: 40px;
+`
+
+export const TextWrapper = styled.div`
+  position: relative;
+  /* margin-bottom: 20px;
+  margin-left: 20px; */
+`
+
+export const TextBox = styled.img`
+  position: absolute;
+  right: 160px;
+  bottom: 30px;
+  width: 220px;
+`
+
+export const Text = styled.span`
+  position: absolute;
+  right: 192px;
+  bottom: 37px;
+  font-size: var(--mid);
+  color: var(--dark-green);
 `

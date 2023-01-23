@@ -15,7 +15,7 @@ export default function Header(props: Iprops) {
     <HeaderWrapper>
       <BackIcon
         alt="icon_back"
-        src="/img/icon_back.png"
+        src="/img/icons/icon_back.png"
         onClick={handleClick}
       />
       <Title>{props.title}</Title>

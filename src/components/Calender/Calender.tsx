@@ -5,7 +5,7 @@ import { GreenComponentWrapper } from '../../style/CommonStyles'
 import {
   CalenderHeader,
   DateWrapper,
-  Menu,
+  // Menu,
   CalenderWrapper,
   Month,
   Dates,
@@ -16,8 +16,9 @@ import {
 } from './style'
 import { Title } from '../../style/CommonStyles'
 import moment from 'moment'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
+import Menu from '../Menu/Menu'
 import Footer from '../Footer/Footer'
 function Calender() {
   const [cookies] = useCookies(['accessToken', 'password'])
@@ -112,22 +113,17 @@ function Calender() {
   return (
     <GreenComponentWrapper>
       <CalenderHeader>
-        <Menu>
-          <span>로고</span>
-          <Link to="/mypage">
-            <img src="img/icon_mypage.png" />
-          </Link>
-        </Menu>
+        <Menu />
         <DateWrapper>
           <img
-            src="img/calendar_icon_left.png"
+            src="img/icons/calendar_icon_left.png"
             onClick={() => {
               setMoment(getMoment.clone().subtract(1, 'month'))
             }}
           />
           <Title>{today.format('YYYY년 MM월')}</Title>
           <img
-            src="img/calendar_icon_right.png"
+            src="img/icons/calendar_icon_right.png"
             onClick={() => {
               setMoment(getMoment.clone().add(1, 'month'))
             }}

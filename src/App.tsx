@@ -14,6 +14,7 @@ import ChangePassword from './components/MyPage/ChangePassword/ChangePassword'
 import TodayList from './components/TodayList'
 import TodayDetail from './components/TodayDetail'
 import Calender from './components/Calender/Calender'
+import MainFarm from './components/MainFarm/MainFarm'
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
         <Route path="/post" element={<TodayPost />} />
         <Route path="/edit" element={<EditAccount />} />
         <Route path="/friend/add" element={<FriendAdd />} />
-        <Route path="/" element={<p>메인페이지입니다.</p>} />
+        <Route path="/" element={<MainFarm />} />
         <Route path="/post" element={<TodayPost />} />
         <Route path="/find/password" element={<FindPassword />} />
         <Route path="*" element={<p>여기는 없는 페이지입니다😢</p>} />

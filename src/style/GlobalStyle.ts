@@ -12,7 +12,8 @@ export const GlobalStyle = createGlobalStyle`
   --more-light-green: #F4F9E9;
   --red: #F06643;
   --dark-beige: #938570;
-  --light-beige: #BDAC93;
+  --beige: #C6BF9B;
+  --light-beige:#E8E3C6;
   --light-yellow: #FFFAE0;
   --light-orange: #FFD443;
   --orange: #F2AE27;
