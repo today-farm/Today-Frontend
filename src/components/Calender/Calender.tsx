@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-// import Header from '../Header/Header'
 import { GreenComponentWrapper } from '../../style/CommonStyles'
 import {
   CalenderHeader,
   DateWrapper,
-  // Menu,
   CalenderWrapper,
   Month,
   Dates,
@@ -16,7 +14,6 @@ import {
 } from './style'
 import { Title } from '../../style/CommonStyles'
 import moment from 'moment'
-// import { Link } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import Menu from '../Menu/Menu'
 import Footer from '../Footer/Footer'
@@ -93,14 +90,11 @@ function Calender() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          `post/find-user-and-month/${userId}/${today.format('MM')}`,
-          {
-            headers: {
-              Authorization: `Bearer ${cookies.accessToken}`,
-            },
+        const res = await axios.get(`post/find-user-and-month/${userId}/1`, {
+          headers: {
+            Authorization: `Bearer ${cookies.accessToken}`,
           },
-        )
+        })
         setTodaies(res.data.result.postInfoDtos)
         console.log(res)
       } catch (e) {
