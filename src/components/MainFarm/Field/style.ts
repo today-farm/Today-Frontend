@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const FiledWrapper = styled.div`
   width: 342px;
   height: 100px;
+  margin-top: 25px;
   border-radius: 30px;
   border: 2px solid var(--beige);
   background-color: var(--light-beige);
