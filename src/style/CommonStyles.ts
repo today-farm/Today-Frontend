@@ -68,6 +68,11 @@ export const BottomButton = styled(NonActiveButton)`
   bottom: 50px;
 `
 
+export const ActiveBottomButton = styled(ActiveButton)`
+  position: absolute;
+  bottom: 50px;
+`
+
 export const SmallLinkButton = styled.div`
   border-bottom: 1px solid var(--mid-green);
   font-size: var(--small);

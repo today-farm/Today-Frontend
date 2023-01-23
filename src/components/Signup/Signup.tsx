@@ -6,7 +6,7 @@ import { ComponentWrapper } from '../../style/CommonStyles'
 import EmailPassword from './EmailPassword/EmailPassword'
 import Profile from './Profile/Profile'
 import { User } from '../Interface'
-
+import { API_URL } from '../../constant'
 function Signup() {
   const navigate = useNavigate()
   const [file, setFile] = useState<File | null>(null)
@@ -30,7 +30,7 @@ function Signup() {
       new Blob([JSON.stringify(info)], { type: 'application/json' }),
     )
     return axios
-      .post(`/sign-up`, formData, {
+      .post(`${API_URL}/sign-up`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((res) => {

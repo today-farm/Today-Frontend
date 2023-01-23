@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useParams } from 'react-router'
 import { Link, useNavigate } from 'react-router-dom'
-
+import { API_URL, IMG_URL } from './../constant'
 export default function TodayDetail() {
   const [cookies] = useCookies(['accessToken', 'password'])
   const [postQuestions, setPostQuestions] = useState<string[]>([])
@@ -13,13 +13,12 @@ export default function TodayDetail() {
   const navigate = useNavigate()
   const params = useParams()
   const todayId = params.id
-  const amazonUrl = `https://todayproject-bucket.s3.ap-northeast-2.amazonaws.com/`
   console.log(canPublicAccess)
 
   async function getDetailToday() {
     return axios({
       method: 'get',
-      url: `/post/find-one/${todayId}/1`,
+      url: `${API_URL}/post/find-one/${todayId}/1`,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${cookies.accessToken}`,
@@ -87,13 +86,11 @@ export default function TodayDetail() {
             <div>{today.question}</div>
             <div>{today.content}</div>
             {today.postImgUrls.map((img: any) => {
-              return <img src={`${amazonUrl}${img.postImgUrl}`} />
+              return <img src={`${IMG_URL}${img.postImgUrl}`} />
             })}
 
             {today.postVideoUrls.map((video: any) => {
-              return (
-                <video controls src={`${amazonUrl}${video.postVideoUrl}`} />
-              )
+              return <video controls src={`${IMG_URL}${video.postVideoUrl}`} />
             })}
           </div>
         )

@@ -18,7 +18,7 @@ import axios from 'axios'
 import { validateNickname } from '../../util/usefulFunctions'
 import { User } from '../../Interface'
 import ImgInput from '../../FileInput/ImgInput/ImgInput'
-
+import { API_URL } from '../../../constant'
 interface Iprops {
   info: User
   setInfo: Dispatch<SetStateAction<User>>
@@ -47,7 +47,7 @@ function Profile(props: Iprops) {
     const formData = new FormData()
     await formData.append('nickname', props.info.nickname)
     return axios
-      .post(`/sign-up/nickname-duplicate-check`, formData, {
+      .post(`${API_URL}/sign-up/nickname-duplicate-check`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((res) => {

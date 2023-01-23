@@ -14,7 +14,8 @@ import Header from '../Header/Header'
 import { todayYearMonthDate } from './TodayDate'
 import { Contents, SecretWrapper, OpenButton, NonActiveButton } from './style'
 import TodayFeeling from './TodayFeeling/TodayFeeling'
-
+import Modal from './Modal/Modal'
+import { API_URL } from '../../constant'
 interface IpreviewImg {
   previewImg1: string[]
   previewImg2: string[]
@@ -55,7 +56,7 @@ export default function Today() {
   const [previewVideo1, setPreviewVideo1] = useState<string[]>([])
   const [previewVideo2, setPreviewVideo2] = useState<string[]>([])
   const [previewVideo3, setPreviewVideo3] = useState<string[]>([])
-
+  const [openModal, setOpenModal] = useState<boolean>(false)
   const handleImgFile = (
     index: number,
     e: React.ChangeEvent<HTMLInputElement>,
@@ -178,10 +179,9 @@ export default function Today() {
       'postSaveDto',
       new Blob([JSON.stringify(TodayPost)], { type: 'application/json' }),
     )
-    //await handleFormData('postSaveDto', TodayPost)
 
     return axios
-      .post(`/post/save`, formData, {
+      .post(`${API_URL}/post/save`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${cookies.accessToken}`,
@@ -189,7 +189,7 @@ export default function Today() {
       })
       .then((res) => {
         console.log('글 등록 성공!')
-        navigate('/todaylist')
+        navigate('/success')
       })
       .catch((err) => {
         console.log(err)
@@ -288,7 +288,16 @@ export default function Today() {
               </NonActiveButton>
             </div>
           </SecretWrapper>
-          <ActiveButton onClick={handleToday}>기록 저장</ActiveButton>
+          <ActiveButton
+            onClick={() => {
+              setOpenModal(true)
+            }}
+          >
+            기록 저장
+          </ActiveButton>
+          {openModal && (
+            <Modal setOpenModal={setOpenModal} handleToday={handleToday} />
+          )}
         </GreenComponentWrapper>
       )}
     </>
