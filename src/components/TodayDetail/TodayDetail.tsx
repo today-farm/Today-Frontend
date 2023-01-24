@@ -19,18 +19,19 @@ import {
   FeelingImg,
 } from './style'
 import { Title } from '../Header/style'
+
 export default function TodayDetail() {
   const [cookies] = useCookies(['accessToken', 'password'])
   const [postQuestions, setPostQuestions] = useState<string[]>([])
   const [creationDay, setCreationDay] = useState('')
-  const [year, month, day] = creationDay.split('-')
   const [todayFeeling, setTodayFeeling] = useState('')
+  const [year, month, day] = creationDay.split('-')
   const userId = localStorage.getItem('userId')
   const navigate = useNavigate()
   const params = useParams()
   const todayId = params.todayId
 
-  const getDetailToday = () => {
+  useEffect(() => {
     axios
       .get(`${API_URL}/post/find-one/${todayId}/${userId}`, {
         headers: {
@@ -42,32 +43,22 @@ export default function TodayDetail() {
         setPostQuestions(res.data.result.postQuestions)
         setCreationDay(res.data.result.creationDay)
         setTodayFeeling(res.data.result.todayFeeling)
-        // setCanPublicAccess(res.data.result.canPublicAccess)
       })
       .catch((err) => {
         console.log(err)
       })
-  }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await getDetailToday()
-    }
-    fetchData()
   }, [])
 
   const deleteToday = () => {
-    axios({
-      method: 'DELETE',
-      url: `/post/delete/${todayId}`,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookies.accessToken}`,
-      },
-    })
+    axios
+      .delete(`${API_URL}/post/delete/${todayId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${cookies.accessToken}`,
+        },
+      })
       .then((res) => {
-        console.log(res)
-        navigate('/todaylist')
+        navigate('/calendar')
       })
       .catch((err) => {
         console.log(err)
@@ -108,32 +99,6 @@ export default function TodayDetail() {
         <ActiveButton>기록 수정</ActiveButton>
       </Link>
       <DeleteButton onClick={deleteToday}>기록 삭제</DeleteButton>
-      {/* <div>날짜 : {creationDay}</div>
-      <div>나의 기분 : {todayFeeling}</div>
-      <div>
-        <label>비밀여부</label>
-        <input type="checkbox" checked={!canPublicAccess} />
-      </div>
-      {postQuestions.map((today: any) => {
-        return (
-          <div>
-            <div>{today.question}</div>
-            <div>{today.content}</div>
-            {today.postImgUrls.map((img: any) => {
-              return <img src={`${IMG_URL}${img.postImgUrl}`} />
-            })}
-
-            {today.postVideoUrls.map((video: any) => {
-              return <video controls src={`${IMG_URL}${video.postVideoUrl}`} />
-            })}
-          </div>
-        )
-      })}
-      <Link to={`/todaylist/update/${todayId}`}>
-        <button>수정하기</button>
-      </Link>
-
-      <button onClick={deleteToday}>삭제하기</button> */}
     </ComponentWrapper>
   )
 }
