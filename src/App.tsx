@@ -11,8 +11,8 @@ import Account from './components/MyPage/Account/Account'
 import FindPassword from './components/FindPassword/FindPassword'
 import ChangePassword from './components/MyPage/ChangePassword/ChangePassword'
 import TodayList from './components/TodayList'
-import TodayDetail from './components/TodayDetail'
-import Calender from './components/Calender/Calender'
+import TodayDetail from './components/TodayDetail/TodayDetail'
+import Calendar from './components/Calendar/Calendar'
 import MainFarm from './components/MainFarm/MainFarm'
 import SuccessPost from './components/Today/SuccessPost/SuccessPost'
 function App() {
@@ -22,7 +22,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/account" element={<Account />} />
-        <Route path="/calender" element={<Calender />} />
+        <Route path="/calendar" element={<Calendar />} />
         <Route path="/change/password" element={<ChangePassword />} />
         <Route path="/login" element={<Login />} />
         <Route path="/withdraw" element={<Withdraw />} />

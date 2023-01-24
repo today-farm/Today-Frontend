@@ -30,12 +30,16 @@ function Footer(props: Iprops) {
           </Link>
         ) : (
           <FarmIcon>
-            <img src="/img/icons/icon_farm.png" />
+            <Link to="/">
+              <img src="/img/icons/icon_farm.png" />
+            </Link>
           </FarmIcon>
         )}
       </FarmIconWrapper>
       <IconWrapper>
-        <Icon src="/img/icons/icon_calendar.png" />
+        <Link to="/calendar">
+          <Icon src="/img/icons/icon_calendar.png" />
+        </Link>
         <Icon src="/img/icons/icon_friends2.png" />
       </IconWrapper>
     </FooterWrapper>

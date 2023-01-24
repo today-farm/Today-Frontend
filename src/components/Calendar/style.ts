@@ -50,3 +50,12 @@ export const CheckToday = styled.div`
   margin-top: 5px;
 `
 export const Day = styled.td``
+
+export const Feeling = styled.div``
+
+export const FeelingImg = styled.img`
+  display: inline-block;
+  width: 40px;
+  height: 32px;
+  margin-top: 5px;
+`
