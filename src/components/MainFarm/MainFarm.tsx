@@ -15,7 +15,6 @@ function MainFarm() {
       <Field text={'8개의 기록이 필요해요.'} />
       <Field text={'15개의 기록이 필요해요.'} />
       <Field text={'22개의 기록이 필요해요'} />
-
       <Footer main={true} />
     </GreenComponentWrapper>
   )

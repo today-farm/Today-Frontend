@@ -29,8 +29,6 @@ export const handlePreviewFiles = (
   imageLists: FileList,
   imageUrlLists: string[],
 ) => {
-  // const imageLists = e.target.files
-  // let imageUrlLists = [...fileNum]
   for (let i = 0; i < imageLists.length; i++) {
     const currentImageUrl = URL.createObjectURL(imageLists[i])
     imageUrlLists.push(currentImageUrl)
@@ -38,7 +36,6 @@ export const handlePreviewFiles = (
   if (imageUrlLists.length > 3) {
     imageUrlLists = imageUrlLists.slice(0, 3)
   }
-  //fileName(imageUrlLists)
 }
 
 export const handleFormData = (key: string, value: any) => {
@@ -47,4 +44,36 @@ export const handleFormData = (key: string, value: any) => {
     key,
     new Blob([JSON.stringify(value)], { type: 'application/json' }),
   )
+}
+
+export const matchFeeling = (feeling: string, size: number) => {
+  if (feeling === 'happy') {
+    return size === 0 ? '/img/feeling/happy.png' : '/img/feeling/happy_big.png'
+  } else if (feeling === 'angry') {
+    return size === 0 ? '/img/feeling/angry.png' : '/img/feeling/angry_big.png'
+  } else if (feeling === 'cold') {
+    return size === 0 ? '/img/feeling/cold.png' : '/img/feeling/cold_big.png'
+  } else if (feeling === 'excited') {
+    return size === 0
+      ? '/img/feeling/excited.png'
+      : '/img/feeling/excited_big.png'
+  } else if (feeling === 'exhausted') {
+    return size === 0
+      ? '/img/feeling/exhausted.png'
+      : '/img/feeling/exhausted_big.png'
+  } else if (feeling === 'heart') {
+    return size === 0 ? '/img/feeling/heart.png' : '/img/feeling/heart_big.png'
+  } else if (feeling === 'proud') {
+    return size === 0 ? '/img/feeling/proud.png' : '/img/feeling/proud_big.png'
+  } else if (feeling === 'sad') {
+    return size === 0 ? '/img/feeling/sad.png' : '/img/feeling/sad_big.png'
+  } else if (feeling === 'sparkling') {
+    return size === 0
+      ? '/img/feeling/sparkling.png'
+      : '/img/feeling/sparkling_big.png'
+  } else if (feeling === 'surprised') {
+    return size === 0
+      ? '/img/feeling/surprised.png'
+      : '/img/feeling/surprised_big.png'
+  }
 }
