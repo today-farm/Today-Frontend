@@ -14,7 +14,13 @@ import {
   ContentInput,
   PreviewImg,
   PreviewVideo,
+  DeleteButton,
 } from './style'
+import { API_URL, IMG_URL } from '../../../constant'
+import axios from 'axios'
+import { useParams } from 'react-router'
+import { Link, useNavigate } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 
 interface Iprops {
   content: string
@@ -28,11 +34,24 @@ interface Iprops {
   ) => void
   previewImg: string[]
   previewVideo: string[]
+  detail?: string
+  images?: any
+  videos?: any
   handleDeleteImage: (id: number, number: number, img?: string) => void
+  setDeleteImgId?: Dispatch<SetStateAction<number[]>> | undefined
+  setDeleteVideoId?: Dispatch<SetStateAction<number[]>> | undefined
 }
 
 export default function QuestionAnswer(props: Iprops) {
   const ref = useRef<HTMLTextAreaElement>(null)
+  const [postQuestions, setPostQuestions] = useState<string[]>([])
+  const [display, setDisplay] = useState<string>('block')
+  const [active, setActive] = useState(false)
+  const userId = localStorage.getItem('userId')
+  const navigate = useNavigate()
+  const params = useParams()
+  const todayId = params.todayId
+  const [cookies] = useCookies(['accessToken', 'password'])
   useEffect(() => {
     if (ref === null || ref.current === null) {
       return
@@ -57,25 +76,69 @@ export default function QuestionAnswer(props: Iprops) {
         handleImgFile={props.handleImgFile}
         handleVideoFile={props.handleVideoFile}
       />
-      {/* {props.previewImg?.map((x: string) => {
-        return <PreviewImg src={x} />
-      })} */}
+      {props.images?.map((image: any, id: number) => {
+        return (
+          <div key={id}>
+            <PreviewImg
+              // style={{ display: display }}
+              src={`${IMG_URL}${image.postImgUrl}`}
+            />
+            <DeleteButton
+              style={{ display: display }}
+              onClick={() => {
+                props.setDeleteImgId?.((imgId: any) => [
+                  ...imgId,
+                  image.postImgUrlId,
+                ])
+                // setDisplay('none')
+                // setActive(!active)
+              }}
+            >
+              X
+            </DeleteButton>
+          </div>
+        )
+      })}
+      {props.videos?.map((video: any, id: number) => {
+        return (
+          <div key={id}>
+            <PreviewVideo
+              style={{ display: display }}
+              src={`${IMG_URL}${video.postImgUrl}`}
+            />
+            <DeleteButton
+              style={{ display: display }}
+              onClick={() => {
+                props.setDeleteImgId?.((imgId: any) => [
+                  ...imgId,
+                  video.postImgUrlId,
+                ])
+                setDisplay('none')
+              }}
+            >
+              X
+            </DeleteButton>
+          </div>
+        )
+      })}
       {props.previewImg?.map((image, id) => (
         <div key={id}>
           <PreviewImg src={image} alt={`${image}-${id}`} />
-          <button
+          <DeleteButton
             onClick={() => props.handleDeleteImage(id, props.number, 'img')}
           >
             x
-          </button>
+          </DeleteButton>
         </div>
       ))}
       {props.previewVideo?.map((video, id) => (
         <div key={id}>
           <PreviewVideo src={video} controls />
-          <button onClick={() => props.handleDeleteImage(id, props.number)}>
+          <DeleteButton
+            onClick={() => props.handleDeleteImage(id, props.number)}
+          >
             x
-          </button>
+          </DeleteButton>
         </div>
       ))}
       <ContentInput
@@ -83,6 +146,7 @@ export default function QuestionAnswer(props: Iprops) {
         ref={ref}
         maxLength={100}
         rows={2}
+        defaultValue={props.detail}
         placeholder="오늘의 기록을 남겨보세요."
         name={props.content}
         onChange={(e) =>
