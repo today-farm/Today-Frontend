@@ -48,7 +48,7 @@ function EmailPassword(props: Iprops) {
 
   const handleConfirmEmail = async () => {
     const formData = new FormData()
-    await formData.append('email', props.info.email)
+    await formData.append('email', props.info?.email)
     await formData.append('authCode', emailAuth)
 
     return axios
@@ -56,6 +56,7 @@ function EmailPassword(props: Iprops) {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((res) => {
+        console.log(res)
         console.log(res.data.result.authSuccess)
         setAuthResult(res.data.result.authSuccess)
         if (res.data.result.authSuccess === true) {
@@ -76,7 +77,7 @@ function EmailPassword(props: Iprops) {
     const formData = new FormData()
     await formData.append('email', props.info.email)
     return axios
-      .post(`${API_URL}}/send-email-auth-code`, formData, {
+      .post(`${API_URL}/send-email-auth-code`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((res) => {
