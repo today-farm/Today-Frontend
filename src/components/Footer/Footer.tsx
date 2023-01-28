@@ -40,7 +40,9 @@ function Footer(props: Iprops) {
         <Link to="/calendar">
           <Icon src="/img/icons/icon_calendar.png" />
         </Link>
-        <Icon src="/img/icons/icon_friends2.png" />
+        <Link to="/friends">
+          <Icon src="/img/icons/icon_friends2.png" />
+        </Link>
       </IconWrapper>
     </FooterWrapper>
   )
