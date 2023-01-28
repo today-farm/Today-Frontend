@@ -16,6 +16,7 @@ import TodayUpdate from './components/TodayUpdate/TodayUpdate'
 import Calendar from './components/Calendar/Calendar'
 import MainFarm from './components/MainFarm/MainFarm'
 import SuccessPost from './components/Today/SuccessPost/SuccessPost'
+import Friend from './components/Friend/Friend'
 function App() {
   return (
     <CookiesProvider>
@@ -31,7 +32,8 @@ function App() {
         <Route path="/todaylist/:todayId" element={<TodayDetail />} />
         <Route path="/todaylist/update/:todayId" element={<TodayUpdate />} />
         <Route path="/post" element={<TodayPost />} />
-        <Route path="/friend/add" element={<FriendAdd />} />
+        <Route path="/friends/add" element={<FriendAdd />} />
+        <Route path="/friends" element={<Friend />} />
         <Route path="/" element={<MainFarm />} />
         <Route path="/success" element={<SuccessPost />} />
         <Route path="/post" element={<TodayPost />} />
