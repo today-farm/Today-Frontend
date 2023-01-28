@@ -1,11 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import {
-  ModalBackground,
-  ModalWrapper,
-  InfoMsg,
-} from './../../FindPassword/Modal/style'
-import { Title } from '../../../style/CommonStyles'
-import { Buttons, SuccessButton, BackButton } from './style'
+import { InfoMsg } from './../../FindPassword/Modal/style'
+import { Title, ModalBackground } from '../../../style/CommonStyles'
+import { Buttons, SuccessButton, BackButton, TodayModalWrapper } from './style'
 interface IProps {
   setOpenModal: Dispatch<SetStateAction<boolean>>
   handleToday: () => void
@@ -14,7 +10,7 @@ interface IProps {
 function Modal(props: IProps) {
   return (
     <ModalBackground>
-      <ModalWrapper>
+      <TodayModalWrapper>
         <Title>기록 저장</Title>
         <InfoMsg>오늘의 하루 기록을 완료할까요?</InfoMsg>
         <Buttons>
@@ -27,7 +23,7 @@ function Modal(props: IProps) {
             이전으로
           </BackButton>
         </Buttons>
-      </ModalWrapper>
+      </TodayModalWrapper>
     </ModalBackground>
   )
 }
