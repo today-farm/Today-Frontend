@@ -1,5 +1,9 @@
 import styled from 'styled-components'
-import { ActiveButton, NonActiveButton } from './../../../style/CommonStyles'
+import {
+  ActiveButton,
+  NonActiveButton,
+  ModalWrapper,
+} from './../../../style/CommonStyles'
 
 export const Buttons = styled.div`
   display: flex;
@@ -14,4 +18,9 @@ export const BackButton = styled(NonActiveButton)`
   margin-left: 5px;
   border: 2px solid var(--light-green);
   color: var(--green);
+`
+export const TodayModalWrapper = styled(ModalWrapper)`
+  width: 342px;
+  height: 288px;
+  justify-content: center;
 `
