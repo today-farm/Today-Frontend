@@ -1,13 +1,12 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { Title } from './../../../style/CommonStyles'
-import { Link } from 'react-router-dom'
 import {
+  Title,
   ModalBackground,
   ModalWrapper,
-  InfoMsg,
   CloseButton,
-  PasswordButton,
-} from './style'
+} from './../../../style/CommonStyles'
+import { Link } from 'react-router-dom'
+import { InfoMsg, PasswordButton, PasswordModalWrapper } from './style'
 
 interface IProps {
   setOpenModal: Dispatch<SetStateAction<boolean>>
