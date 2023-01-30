@@ -17,3 +17,8 @@ export const Text = styled.div`
 export const FenceImg = styled.img`
   justify-self: flex-end;
 `
+export const Crops = styled.div``
+
+export const CropImg = styled.img`
+  margin: 28px 10px 7px 10px;
+`

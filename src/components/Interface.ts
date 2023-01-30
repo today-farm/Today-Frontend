@@ -11,6 +11,11 @@ export interface errorData {
   passwordCheckError: string
 }
 
+export interface Icrops {
+  cropNumber: number
+  cropStatus: string
+}
+
 export interface Icontent {
   content1: string
   content2: string
