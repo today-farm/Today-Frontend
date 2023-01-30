@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
 export const FiledWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 342px;
   height: 100px;
   margin-top: 25px;
@@ -12,13 +16,19 @@ export const FiledWrapper = styled.div`
 export const Text = styled.div`
   color: var(--beige);
   font-size: var(--mid);
-  margin: 31px 0 17px 0;
+  margin-bottom: 10px;
 `
 export const FenceImg = styled.img`
-  justify-self: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: 30px;
 `
-export const Crops = styled.div``
+export const Crops = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  position: absolute;
+  bottom: 38px;
+`
 
-export const CropImg = styled.img`
-  margin: 28px 10px 7px 10px;
-`
+export const CropImg = styled.img``
