@@ -26,9 +26,16 @@ export const Button = styled.button`
   border: 2px solid var(--mid-green);
   background-color: transparent;
   font-size: var(--big);
-  color: var(--mid-green);
+  color: var(--green);
   cursor: pointer;
 `
+
+export const ActiveButton = styled(Button)`
+  border: none;
+  background-color: var(--green);
+  color: #fff;
+`
+
 export const FriendRequestWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -92,6 +99,12 @@ export const SmallButton = styled.button`
   color: #fff;
   font-size: var(--mid);
   cursor: pointer;
+`
+
+export const DeleteButton = styled(SmallButton)`
+  border: 2px solid var(--mid-green);
+  background-color: transparent;
+  color: var(--green);
 `
 export const NickName = styled.span`
   width: 50%;

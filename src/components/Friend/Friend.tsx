@@ -3,7 +3,11 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import Footer from '../Footer/Footer'
-import { GreenComponentWrapper, Title } from '../../style/CommonStyles'
+import {
+  GreenComponentWrapper,
+  NonActiveSmallButton,
+  Title,
+} from '../../style/CommonStyles'
 import {
   Header,
   FriendsList,
@@ -17,6 +21,8 @@ import {
   ProfileImg,
   SmallButton,
   NickName,
+  ActiveButton,
+  DeleteButton,
 } from './style'
 import FindFriendModal from './FindFriendModal/FindFriendModal'
 import FriendRequestModal from './FriendRequestModal/FriendRequestModal'
@@ -29,8 +35,20 @@ export default function Friend() {
   const [openRequestModal, setOpenRequestModal] = useState<boolean>(false)
   const [friends, setFriends] = useState([])
   const [requestUsers, setRequestUsers] = useState([])
+  const [editOn, setEditOn] = useState(false)
+  const deleteFriend = (friendId: number) => {
+    axios.post(
+      `${API_URL}/friend/delete/${friendId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.accessToken}`,
+        },
+      },
+    )
+  }
 
-  useEffect(() => {
+  const showFriends = () => {
     axios
       .get(`${API_URL}/friend/friends/${userId}`, {
         headers: {
@@ -38,10 +56,17 @@ export default function Friend() {
         },
       })
       .then((res) => {
-        console.log(res)
         setFriends(res.data.result.friendInfos)
       })
+  }
+
+  useEffect(() => {
+    showFriends()
   }, [])
+
+  useEffect(() => {
+    showFriends()
+  }, [deleteFriend])
 
   useEffect(() => {
     axios
@@ -75,14 +100,40 @@ export default function Friend() {
                   alt={'profile'}
                 />
                 <NickName>{x.nickname}</NickName>
-                <Link to="">
-                  <SmallButton>농장 보기</SmallButton>
-                </Link>
+                {editOn === true ? (
+                  <DeleteButton
+                    onClick={() => {
+                      deleteFriend(x.userId)
+                    }}
+                  >
+                    친구 삭제
+                  </DeleteButton>
+                ) : (
+                  <Link to="">
+                    <SmallButton>농장 보기</SmallButton>
+                  </Link>
+                )}
               </FriendProfile>
             )
           })}
         </FriendsProfilesWrapper>
-        <Button>친구 목록 편집</Button>
+        {editOn === true ? (
+          <ActiveButton
+            onClick={() => {
+              setEditOn(false)
+            }}
+          >
+            편집 완료
+          </ActiveButton>
+        ) : (
+          <Button
+            onClick={() => {
+              setEditOn(true)
+            }}
+          >
+            친구 목록 편집
+          </Button>
+        )}
       </FriendsList>
       <FriendRequestWrapper
         onClick={() => {
