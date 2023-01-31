@@ -10,6 +10,8 @@ import {
   Input,
   BottomButton,
   Error,
+  ClearButton,
+  ActiveBottomButton,
 } from './../../../style/CommonStyles'
 import Header from '../../Header/Header'
 import { validatePassword } from '../../util/usefulFunctions'
@@ -54,6 +56,10 @@ function ChangePassword() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'changePassword') {
+      setPassword((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.value,
+      }))
       if (!validatePassword(e.target.value)) {
         setError((prev) => ({
           ...prev,
@@ -65,12 +71,12 @@ function ChangePassword() {
           ...prev,
           changePasswordError: '',
         }))
-        setPassword((prev) => ({
-          ...prev,
-          [e.target.name]: e.target.value,
-        }))
       }
     } else if (e.target.name === 'changePasswordCheck') {
+      setPassword((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.value,
+      }))
       if (!Checkpassword(e.target.value)) {
         setError((prev) => ({
           ...prev,
@@ -96,6 +102,7 @@ function ChangePassword() {
       password.changePasswordCheck
     ) {
       alert('빠진 정보가 없는지 확인해 주세요!')
+      return
     }
     return axios
       .patch(`${API_URL}/user/update-password`, formData, {
@@ -110,7 +117,6 @@ function ChangePassword() {
         navigate('/mypage')
       })
       .catch((err) => {
-        console.log(err)
         if (err.response.data.errorCode === 2005) {
           setError((prev) => ({
             ...prev,
@@ -119,6 +125,23 @@ function ChangePassword() {
           }))
         }
       })
+  }
+
+  const clearInput = (target: string) => {
+    target === 'currentPassword'
+      ? setPassword((prev) => ({
+          ...prev,
+          ['currentPassword']: '',
+        }))
+      : target === 'changePassword'
+      ? setPassword((prev) => ({
+          ...prev,
+          ['changePassword']: '',
+        }))
+      : setPassword((prev) => ({
+          ...prev,
+          ['changePasswordCheck']: '',
+        }))
   }
 
   return (
@@ -130,9 +153,18 @@ function ChangePassword() {
           <Input
             type="password"
             name="currentPassword"
+            value={password.currentPassword}
             placeholder="현재 비밀번호를 입력해 주세요."
             onChange={handleCurrentPassword}
           />
+          {password.currentPassword !== '' && (
+            <ClearButton
+              src="/img/icons/icon_input_delete.png"
+              onClick={() => {
+                clearInput('currentPassword')
+              }}
+            />
+          )}
           <Error>{error.currentPasswordError}</Error>
         </InputWrapper>
         <InputWrapper>
@@ -141,8 +173,17 @@ function ChangePassword() {
             type="password"
             name="changePassword"
             placeholder="새로운 비밀번호를 입력해 주세요."
+            value={password.changePassword}
             onChange={handleChange}
           />
+          {password.changePassword !== '' && (
+            <ClearButton
+              src="/img/icons/icon_input_delete.png"
+              onClick={() => {
+                clearInput('changePassword')
+              }}
+            />
+          )}
           <Error>{error.changePasswordError}</Error>
         </InputWrapper>
         <InputWrapper>
@@ -151,12 +192,27 @@ function ChangePassword() {
             type="password"
             name="changePasswordCheck"
             placeholder="비밀번호를 한 번 더 입력해 주세요."
+            value={password.changePasswordCheck}
             onChange={handleChange}
           />
+          {password.changePasswordCheck !== '' && (
+            <ClearButton
+              src="/img/icons/icon_input_delete.png"
+              onClick={() => {
+                clearInput('changePasswordCheck')
+              }}
+            />
+          )}
           <Error>{error.changePasswordCheckError}</Error>
         </InputWrapper>
       </Inputs>
-      <BottomButton onClick={handleUpdate}>비밀번호 변경</BottomButton>
+      {password.currentPassword !== '' &&
+      password.changePassword !== '' &&
+      password.changePasswordCheck !== '' ? (
+        <ActiveBottomButton>비밀번호 변경</ActiveBottomButton>
+      ) : (
+        <BottomButton onClick={handleUpdate}>비밀번호 변경</BottomButton>
+      )}
     </ComponentWrapper>
   )
 }
