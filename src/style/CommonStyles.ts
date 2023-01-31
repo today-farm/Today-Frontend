@@ -90,11 +90,13 @@ export const Inputs = styled.div<Inputs>`
 `
 
 export const InputWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
 `
 
 export const Input = styled.input`
+  position: relative;
   width: 100%;
   border: none;
   border-bottom: 1px solid var(--light-gray);
@@ -142,7 +144,6 @@ export const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   padding: 25px;
   padding-bottom: 30px;
   border-radius: 30px;
@@ -152,5 +153,12 @@ export const ModalWrapper = styled.div`
 export const CloseButton = styled.img`
   align-self: flex-end;
   margin-bottom: 10px;
+  cursor: pointer;
+`
+
+export const ClearButton = styled.img`
+  position: absolute;
+  top: 20px;
+  right: 0;
   cursor: pointer;
 `
