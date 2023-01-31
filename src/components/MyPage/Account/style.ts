@@ -1,5 +1,9 @@
 import styled from 'styled-components'
-import { Input, NonActiveButton } from '../../../style/CommonStyles'
+import {
+  Input,
+  ActiveButton,
+  NonActiveButton,
+} from '../../../style/CommonStyles'
 
 export const Line = styled.div`
   color: var(--light-gray);
@@ -11,8 +15,12 @@ export const ProfileImg = styled.img`
   height: 80px;
   border-radius: 50%;
 `
+export const DoubleCheckButton = styled(ActiveButton)`
+  width: 186px;
+  margin-top: 48px;
+`
 
-export const DoubleCheckButton = styled(NonActiveButton)`
+export const NonDoubleCheckButton = styled(NonActiveButton)`
   width: 186px;
   margin-top: 48px;
 `

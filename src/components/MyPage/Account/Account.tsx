@@ -4,11 +4,17 @@ import {
   Error,
   Success,
   BottomButton,
+  ActiveBottomButton,
 } from './../../../style/CommonStyles'
 import Header from '../../Header/Header'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
-import { ProfileImg, DoubleCheckButton, NickNameInput } from './style'
+import {
+  ProfileImg,
+  NonDoubleCheckButton,
+  DoubleCheckButton,
+  NickNameInput,
+} from './style'
 import ImgInput from '../../FileInput/ImgInput/ImgInput'
 import { API_URL, IMG_URL } from '../../../constant'
 
@@ -124,10 +130,20 @@ function Account() {
       />
       <Error>{error}</Error>
       <Success>{success}</Success>
-      <DoubleCheckButton onClick={handleDoubleCheck}>
-        닉네임 중복 확인
-      </DoubleCheckButton>
-      <BottomButton onClick={handleUpdate}>저장</BottomButton>
+      {changeNickname !== '' ? (
+        <DoubleCheckButton onClick={handleDoubleCheck}>
+          닉네임 중복 확인
+        </DoubleCheckButton>
+      ) : (
+        <NonDoubleCheckButton onClick={handleDoubleCheck}>
+          닉네임 중복 확인
+        </NonDoubleCheckButton>
+      )}
+      {success === '사용 가능한 닉네임이에요!' ? (
+        <ActiveBottomButton onClick={handleUpdate}>저장</ActiveBottomButton>
+      ) : (
+        <BottomButton onClick={handleUpdate}>저장</BottomButton>
+      )}
     </ComponentWrapper>
   )
 }
