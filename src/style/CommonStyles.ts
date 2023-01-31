@@ -81,6 +81,7 @@ export const SmallLinkButton = styled.div`
 `
 
 export const Inputs = styled.div<Inputs>`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
