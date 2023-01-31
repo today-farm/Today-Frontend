@@ -1,4 +1,7 @@
 import styled from 'styled-components'
+interface Itextbox {
+  img: string
+}
 
 export const FooterWrapper = styled.div`
   position: fixed;
@@ -49,21 +52,21 @@ export const RabbitImg = styled.img`
 
 export const TextWrapper = styled.div`
   position: relative;
-  /* margin-bottom: 20px;
-  margin-left: 20px; */
 `
 
-export const TextBox = styled.img`
+export const TextBox = styled.div<Itextbox>`
   position: absolute;
-  right: 160px;
+  right: 146px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   bottom: 30px;
-  width: 220px;
+  width: 234px;
+  height: 40px;
+  background-image: url(${(props) => props.img});
 `
 
 export const Text = styled.span`
-  position: absolute;
-  right: 192px;
-  bottom: 37px;
   font-size: var(--mid);
   color: var(--dark-green);
 `
