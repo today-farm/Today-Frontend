@@ -3,11 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import Footer from '../Footer/Footer'
-import {
-  ActiveSmallButton,
-  GreenComponentWrapper,
-  Title,
-} from '../../style/CommonStyles'
+import { GreenComponentWrapper, Title } from '../../style/CommonStyles'
 import {
   Header,
   FriendsList,

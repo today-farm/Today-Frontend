@@ -8,24 +8,16 @@ export const Header = styled.header`
 `
 
 export const FriendsList = styled.div`
-  /* display: flex;
+  display: flex;
   flex-direction: column;
-  align-items: center; */
+  align-items: center;
   width: 342px;
   height: 492px;
-  padding: 30px 25px;
+  padding: 30px 10px;
   margin-top: 24px;
   background-color: #fff;
   border: 2px solid var(--light-green);
   border-radius: 30px;
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    width: 2px;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: #ccc;
-  }
 `
 export const Button = styled.button`
   width: 268px;
@@ -61,14 +53,24 @@ export const FindFriendButton = styled.img`
 `
 
 export const FriendsProfilesWrapper = styled.div`
-  height: 43vh;
+  width: 100%;
+  height: 370px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #ccc;
+  }
 `
 
 export const FriendProfile = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
-  padding: 10px 0;
+  padding: 10px 14px;
 `
 
 export const ProfileImg = styled.img`
@@ -78,8 +80,6 @@ export const ProfileImg = styled.img`
   border-radius: 50%;
 `
 export const SmallButton = styled.button`
-  /* align-self: flex-end; */
-  /* margin-left: 100%; */
   width: 97px;
   height: 36px;
   border-radius: 18px;
@@ -90,5 +90,6 @@ export const SmallButton = styled.button`
   cursor: pointer;
 `
 export const NickName = styled.span`
+  width: 50%;
   font-size: var(--mid);
 `
