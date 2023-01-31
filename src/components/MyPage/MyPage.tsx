@@ -16,7 +16,6 @@ import {
   LogoutButton,
   MyPageMenu,
 } from './style'
-// import RightButton from 'img/icon_right.png';
 import { User } from '../Interface'
 
 export default function MyPage() {
@@ -38,8 +37,6 @@ export default function MyPage() {
           Authorization: `Bearer ${cookies.accessToken}`,
         },
       }).then((res) => {
-        console.log(res)
-        // setInfo(['email']: res.data.result.email);
         setInfo((prev) => ({
           ...prev,
           ['email']: res.data.result.email,
