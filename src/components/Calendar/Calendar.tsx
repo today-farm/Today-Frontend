@@ -41,7 +41,7 @@ function Calender() {
         <tr key={week}>
           {Array(7)
             .fill(0)
-            .map((data, index) => {
+            .map((_data, index) => {
               let days = today
                 .clone()
                 .startOf('year')
@@ -78,6 +78,7 @@ function Calender() {
                         )
                       }
                     })}
+                    <CheckToday />
                   </Day>
                 )
               } else if (days.format('MM') !== today.format('MM')) {
@@ -92,12 +93,9 @@ function Calender() {
                 return (
                   <Day key={index}>
                     <div>{days.format('D')}</div>
-                    {todaies.map((x: any) => {
+                    {todaies.map((x) => {
                       const [, , day] = x.creationDay.split('-')
-                      if (
-                        day === days.format('D') &&
-                        today.format('MM') === days.format('MM')
-                      ) {
+                      if (day === days.format('D')) {
                         return (
                           <>
                             <Link to={`/todaylist/${x.postId}`}>
