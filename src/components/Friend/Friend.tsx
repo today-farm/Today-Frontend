@@ -146,7 +146,10 @@ export default function Friend() {
       <Footer />
       {openFindModal && <FindFriendModal setOpenModal={setOpenFindModal} />}
       {openRequestModal && (
-        <FriendRequestModal setOpenModal={setOpenRequestModal} />
+        <FriendRequestModal
+          setOpenModal={setOpenRequestModal}
+          // openModal={openRequestModal}
+        />
       )}
     </GreenComponentWrapper>
   )
