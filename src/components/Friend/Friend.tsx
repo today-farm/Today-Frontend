@@ -23,6 +23,7 @@ import {
   NickName,
   ActiveButton,
   DeleteButton,
+  SmallLineButton,
 } from './style'
 import FindFriendModal from './FindFriendModal/FindFriendModal'
 import FriendRequestModal from './FriendRequestModal/FriendRequestModal'
@@ -33,7 +34,8 @@ export default function Friend() {
   const [cookies] = useCookies(['accessToken', 'password'])
   const [openFindModal, setOpenFindModal] = useState<boolean>(false)
   const [openRequestModal, setOpenRequestModal] = useState<boolean>(false)
-  const [friends, setFriends] = useState([])
+  const [friends, setFriends] = useState<any>([])
+  const [prevfriends, setPrevFriends] = useState([])
   const [requestUsers, setRequestUsers] = useState([])
   const [editOn, setEditOn] = useState(false)
   const deleteFriend = (friendId: number) => {
@@ -56,7 +58,13 @@ export default function Friend() {
         },
       })
       .then((res) => {
-        setFriends(res.data.result.friendInfos)
+        console.log(res)
+        // setFriends([
+        //   ...res.data.result.friendWithEachOtherInfos,
+        //   ...res.data.result.sendRequestFriendInfos,
+        // ])
+        setFriends(res.data.result.friendWithEachOtherInfos)
+        setPrevFriends(res.data.result.sendRequestFriendInfos)
       })
   }
 
@@ -75,13 +83,15 @@ export default function Friend() {
           Authorization: `Bearer ${cookies.accessToken}`,
         },
       })
-      .then((res) => setRequestUsers(res.data.result.friendRequestInfoDtos))
+      .then((res) => setRequestUsers(res.data.result.receiveRequestFriendInfos))
   }, [])
 
   return (
     <GreenComponentWrapper>
       <Header>
-        <div>로고</div>
+        <Link to="/">
+          <div>로고</div>
+        </Link>
         <FindFriendButton
           src={'/img/icons/icon_add.png'}
           onClick={() => {
@@ -92,6 +102,24 @@ export default function Friend() {
       <Title>농부 친구들</Title>
       <FriendsList>
         <FriendsProfilesWrapper>
+          {prevfriends.map((x: any) => {
+            return (
+              <FriendProfile>
+                <ProfileImg
+                  src={`${IMG_URL}${x.profileImgUrl}`}
+                  alt={'profile'}
+                />
+                <NickName>{x.nickname}</NickName>
+                <SmallLineButton
+                  onClick={() => {
+                    deleteFriend(x.userId)
+                  }}
+                >
+                  요청 취소
+                </SmallLineButton>
+              </FriendProfile>
+            )
+          })}
           {friends.map((x: any) => {
             return (
               <FriendProfile>

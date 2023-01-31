@@ -26,7 +26,7 @@ function FriendRequestModal(props: Iprops) {
           Authorization: `Bearer ${cookies.accessToken}`,
         },
       })
-      .then((res) => setRequestUsers(res.data.result.friendRequestInfoDtos))
+      .then((res) => setRequestUsers(res.data.result.receiveRequestFriendInfos))
   }
 
   const acceptRequest = (requestUserId: number) => {

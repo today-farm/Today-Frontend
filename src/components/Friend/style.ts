@@ -110,3 +110,8 @@ export const NickName = styled.span`
   width: 50%;
   font-size: var(--mid);
 `
+export const SmallLineButton = styled(SmallButton)`
+  border: 2px solid var(--mid-green);
+  color: var(--green);
+  background-color: transparent;
+`
