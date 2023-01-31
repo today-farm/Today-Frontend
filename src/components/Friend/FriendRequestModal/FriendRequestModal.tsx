@@ -31,7 +31,19 @@ function FriendRequestModal(props: Iprops) {
 
   const acceptRequest = (requestUserId: number) => {
     axios.post(
-      `${API_URL}/friend/accept-request/${requestUserId}`,
+      `${API_URL}/friend/accept-one-request/${requestUserId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.accessToken}`,
+        },
+      },
+    )
+  }
+
+  const allAcceptRequest = () => {
+    axios.post(
+      `${API_URL}/friend/accept-all-request`,
       {},
       {
         headers: {
@@ -94,7 +106,7 @@ function FriendRequestModal(props: Iprops) {
             )
           })}
         </RequestUsersWrapper>
-        <Button>모두 수락</Button>
+        <Button onClick={allAcceptRequest}>모두 수락</Button>
       </FriendModalWrapper>
     </ModalBackground>
   )
