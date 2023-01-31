@@ -1,6 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { InfoMsg } from './../../FindPassword/Modal/style'
-import { Title, ModalBackground } from '../../../style/CommonStyles'
+import { Title, ModalBackground, InfoMsg } from '../../../style/CommonStyles'
 import { Buttons, SuccessButton, BackButton, TodayModalWrapper } from './style'
 interface IProps {
   setOpenModal: Dispatch<SetStateAction<boolean>>

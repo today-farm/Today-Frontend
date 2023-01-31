@@ -163,3 +163,11 @@ export const ClearButton = styled.img`
   right: 0;
   cursor: pointer;
 `
+export const InfoMsg = styled.div`
+  margin: 30px 0;
+  font-size: var(--mid);
+  text-align: center;
+`
+export const ModalButton = styled(ActiveButton)`
+  width: 286px;
+`
