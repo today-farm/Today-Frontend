@@ -40,13 +40,17 @@ export const FriendRequest = styled.div`
   border-bottom: 1px solid var(--green);
   color: var(--green);
   font-size: var(--small);
-  margin: 30px 3px;
+  margin: 20px 3px;
 `
 export const FriendRequestNum = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   background-color: var(--green);
+  color: #fff;
 `
 export const FindFriendButton = styled.img`
   cursor: pointer;

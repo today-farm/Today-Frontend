@@ -28,6 +28,7 @@ export default function Friend() {
   const [openFindModal, setOpenFindModal] = useState<boolean>(false)
   const [openRequestModal, setOpenRequestModal] = useState<boolean>(false)
   const [friends, setFriends] = useState([])
+  const [requestUsers, setRequestUsers] = useState([])
 
   useEffect(() => {
     axios
@@ -40,6 +41,16 @@ export default function Friend() {
         console.log(res)
         setFriends(res.data.result.friendInfos)
       })
+  }, [])
+
+  useEffect(() => {
+    axios
+      .get(`${API_URL}/friend/find-requested-users`, {
+        headers: {
+          Authorization: `Bearer ${cookies.accessToken}`,
+        },
+      })
+      .then((res) => setRequestUsers(res.data.result.friendRequestInfoDtos))
   }, [])
 
   return (
@@ -79,7 +90,7 @@ export default function Friend() {
         }}
       >
         <FriendRequest>당신과 친구가 되고 싶어해요!</FriendRequest>
-        <FriendRequestNum></FriendRequestNum>
+        <FriendRequestNum>{requestUsers.length}</FriendRequestNum>
       </FriendRequestWrapper>
       <Footer />
       {openFindModal && <FindFriendModal setOpenModal={setOpenFindModal} />}
