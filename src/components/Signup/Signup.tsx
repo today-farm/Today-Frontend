@@ -15,12 +15,14 @@ function Signup() {
     email: '',
     password: '',
     nickname: '',
+    passwordCheck: '',
   })
 
   const handleSignup = async () => {
     const formData = new FormData()
     if (info.nickname === '' || info.email === '' || info.password === '') {
       alert('빠진 정보가 없는지 확인해주세요!')
+      return
     }
     if (file) {
       await formData.append('profileImg', file)

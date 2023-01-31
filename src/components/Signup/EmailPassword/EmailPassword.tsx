@@ -3,14 +3,13 @@ import React, { useState, Dispatch, SetStateAction } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { validateEmail, validatePassword } from '../../util/usefulFunctions'
-import { EmailInput, EmailAuthInput } from './style'
+import { EmailInput, EmailAuthInput, SignUpClearButton } from './style'
 import {
   ComponentWrapper,
-  NonActiveButton,
   ActiveButton,
+  NonActiveButton,
   NonActiveSmallButton,
   SmallLinkButton,
-  Title,
   ActiveSmallButton,
   Inputs,
   Input,
@@ -18,6 +17,7 @@ import {
   InputWrapper,
   Error,
   Success,
+  ClearButton,
 } from '../../../style/CommonStyles'
 import Timer from '../Timer/Timer'
 import { User, errorData } from '../../Interface'
@@ -44,6 +44,23 @@ function EmailPassword(props: Iprops) {
   })
   const Checkpassword = (passwordCheck: string) => {
     return passwordCheck === props.info.password
+  }
+
+  const clearInput = (target: string) => {
+    target === 'email'
+      ? props.setInfo((prev) => ({
+          ...prev,
+          ['email']: '',
+        }))
+      : target === 'password'
+      ? props.setInfo((prev) => ({
+          ...prev,
+          ['password']: '',
+        }))
+      : props.setInfo((prev) => ({
+          ...prev,
+          ['passwordCheck']: '',
+        }))
   }
 
   const handleConfirmEmail = async () => {
@@ -97,6 +114,10 @@ function EmailPassword(props: Iprops) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'email') {
+      props.setInfo((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.value,
+      }))
       if (!validateEmail(e.target.value)) {
         setError((prev) => ({
           ...prev,
@@ -109,14 +130,14 @@ function EmailPassword(props: Iprops) {
           ...prev,
           emailError: '',
         }))
-        props.setInfo((prev) => ({
-          ...prev,
-          [e.target.name]: e.target.value,
-        }))
         setOpenEmailAuthInput(true)
         setHeight(260)
       }
     } else if (e.target.name === 'password') {
+      props.setInfo((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.value,
+      }))
       if (!validatePassword(e.target.value)) {
         setError((prev) => ({
           ...prev,
@@ -128,12 +149,12 @@ function EmailPassword(props: Iprops) {
           ...prev,
           passwordError: '',
         }))
-        props.setInfo((prev) => ({
-          ...prev,
-          [e.target.name]: e.target.value,
-        }))
       }
     } else if (e.target.name === 'passwordCheck') {
+      props.setInfo((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.value,
+      }))
       if (!Checkpassword(e.target.value)) {
         setError((prev) => ({
           ...prev,
@@ -159,8 +180,17 @@ function EmailPassword(props: Iprops) {
               type="text"
               placeholder="이메일을 입력해 주세요."
               name="email"
+              value={props.info.email}
               onChange={handleChange}
             />
+            {props.info.email !== '' && (
+              <SignUpClearButton
+                src="/img/icons/icon_input_delete.png"
+                onClick={() => {
+                  clearInput('email')
+                }}
+              />
+            )}
             <NonActiveSmallButton onClick={handleEmailAuth}>
               인증 요청
             </NonActiveSmallButton>
@@ -194,8 +224,17 @@ function EmailPassword(props: Iprops) {
             type="password"
             placeholder="비밀번호를 입력해 주세요."
             name="password"
+            value={props.info.password}
             onChange={handleChange}
           />
+          {props.info.password !== '' && (
+            <ClearButton
+              src="/img/icons/icon_input_delete.png"
+              onClick={() => {
+                clearInput('password')
+              }}
+            />
+          )}
           <Error>{error.passwordError}</Error>
         </InputWrapper>
         <InputWrapper>
@@ -204,24 +243,40 @@ function EmailPassword(props: Iprops) {
             type="password"
             placeholder="비밀번호를 한 번 더 입력해 주세요."
             name="passwordCheck"
+            value={props.info.passwordCheck}
             onChange={handleChange}
           />
+          {props.info.passwordCheck !== '' && (
+            <ClearButton
+              src="/img/icons/icon_input_delete.png"
+              onClick={() => {
+                clearInput('passwordCheck')
+              }}
+            />
+          )}
           <Error>{error.passwordCheckError}</Error>
         </InputWrapper>
       </Inputs>
-      <NonActiveButton
-        onClick={() => {
-          if (props.info.email === '' || props.info.password === '') {
-            alert('빠진 정보가 없는지 확인해주세요!')
-          } else if (authResult !== true) {
-            alert('이메일 인증을 확인해주세요!')
-          } else {
-            props.setOpenProfilePage(true)
-          }
-        }}
-      >
-        회원가입
-      </NonActiveButton>
+      {props.info.email !== '' &&
+      props.info.password !== '' &&
+      props.info.passwordCheck !== '' ? (
+        <ActiveButton>회원가입</ActiveButton>
+      ) : (
+        <NonActiveButton
+          onClick={() => {
+            if (props.info.email === '' || props.info.password === '') {
+              alert('빠진 정보가 없는지 확인해주세요!')
+            } else if (authResult !== true) {
+              alert('이메일 인증을 확인해주세요!')
+            } else {
+              props.setOpenProfilePage(true)
+            }
+          }}
+        >
+          회원가입
+        </NonActiveButton>
+      )}
+
       <Link to="/find/password">
         <SmallLinkButton>비밀번호 찾기</SmallLinkButton>
       </Link>

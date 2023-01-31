@@ -3,6 +3,7 @@ export interface User {
   password?: string
   nickname: string
   img?: string
+  passwordCheck?: string
 }
 
 export interface errorData {
