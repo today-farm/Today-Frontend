@@ -11,9 +11,11 @@ import {
   NonActiveButton,
   SmallLinkButton,
   Error,
+  ClearButton,
 } from '../../style/CommonStyles'
 import { Links, LoginInputs, Line } from './style'
 import { API_URL } from '../../constant'
+import { ActiveButton } from './../../style/CommonStyles'
 interface User {
   email: string
   password: string
@@ -24,7 +26,7 @@ interface errorData {
   passwordError: string
 }
 
-function Login() {
+export default function Login() {
   const navigate = useNavigate()
   const [, setCookie] = useCookies<string>(['accessToken'])
   const [info, setInfo] = useState<User>({
@@ -35,10 +37,12 @@ function Login() {
     emailError: '',
     passwordError: '',
   })
-  console.log(info)
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'email') {
+      setInfo((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.value,
+      }))
       if (!validateEmail(e.target.value)) {
         setError((prev) => ({
           ...prev,
@@ -48,10 +52,6 @@ function Login() {
         setError((prev) => ({
           ...prev,
           emailError: '',
-        }))
-        setInfo((prev) => ({
-          ...prev,
-          [e.target.name]: e.target.value,
         }))
       }
     } else if (e.target.name === 'password') {
@@ -63,15 +63,12 @@ function Login() {
   }
 
   const handleLogin = () => {
-    return (
+    if (error.emailError === '' && info.email !== '' && info.password !== '') {
       axios
-        .post(`${API_URL}/login`, info, {
-          // headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
-        })
+        .post(`${API_URL}/login`, info)
         .then((res) => {
-          let refreshToken: string = res.headers['Authorization-refresh']!
-          let accessToken = res.headers.Authorization
+          let refreshToken: string = res.headers['authorization-refresh']!
+          let accessToken = res.headers.authorization
           let userId = res.data.userId
           localStorage.setItem('userId', userId)
           setCookie('accessToken', accessToken)
@@ -81,19 +78,28 @@ function Login() {
             emailError: '',
             passwordError: '',
           }))
-          // navigate('/')
-          console.log(res)
+          navigate('/')
         })
-        // .then((res) => console.log('두번째 then ' + res))
         .catch((err) => {
-          console.log(err)
           setError((prev) => ({
             ...prev,
             emailError: '가입되지 않은 이메일이에요! 다시 확인해 주세요.',
             passwordError: '비밀번호가 잘못되었어요! 다시 확인해 주세요.',
           }))
         })
-    )
+    }
+  }
+
+  const clearInput = (target: string) => {
+    target === 'email'
+      ? setInfo((prev) => ({
+          ...prev,
+          ['email']: '',
+        }))
+      : setInfo((prev) => ({
+          ...prev,
+          ['password']: '',
+        }))
   }
 
   return (
@@ -105,8 +111,17 @@ function Login() {
             type="text"
             placeholder="이메일을 입력해 주세요."
             name="email"
+            value={info.email}
             onChange={handleChange}
           />
+          {info.email !== '' && (
+            <ClearButton
+              src="/img/icons/icon_input_delete.png"
+              onClick={() => {
+                clearInput('email')
+              }}
+            />
+          )}
           <Error>{error.emailError}</Error>
         </InputWrapper>
         <InputWrapper>
@@ -114,13 +129,26 @@ function Login() {
           <Input
             type="password"
             placeholder="비밀번호를 입력해 주세요."
+            value={info.password}
             name="password"
             onChange={handleChange}
           />
+          {info.password !== '' && (
+            <ClearButton
+              src="/img/icons/icon_input_delete.png"
+              onClick={() => {
+                clearInput('password')
+              }}
+            />
+          )}
           <Error>{error.passwordError}</Error>
         </InputWrapper>
       </LoginInputs>
-      <NonActiveButton onClick={handleLogin}>로그인</NonActiveButton>
+      {info.email !== '' && info.password !== '' ? (
+        <ActiveButton onClick={handleLogin}>로그인</ActiveButton>
+      ) : (
+        <NonActiveButton onClick={handleLogin}>로그인</NonActiveButton>
+      )}
       <Links>
         <Link to="/signup">
           <SmallLinkButton>회원가입</SmallLinkButton>
@@ -133,5 +161,3 @@ function Login() {
     </ComponentWrapper>
   )
 }
-
-export default Login

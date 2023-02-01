@@ -9,6 +9,8 @@ import {
   NonActiveButton,
   SmallLinkButton,
   Error,
+  ActiveButton,
+  ClearButton,
 } from './../../style/CommonStyles'
 import Modal from './Modal/Modal'
 import { API_URL } from '../../constant'
@@ -49,11 +51,24 @@ export default function FindPassword() {
           placeholder="가입하신 이메일을 입력해 주세요."
           onChange={handleEmail}
         />
+        {email !== '' && (
+          <ClearButton
+            src="/img/icons/icon_input_delete.png"
+            onClick={() => {
+              setEmail('')
+            }}
+          />
+        )}
         <Error>{error}</Error>
       </Inputs>
-      <NonActiveButton onClick={findPassword}>
-        임시 비밀번호 전송
-      </NonActiveButton>
+      {email !== '' ? (
+        <ActiveButton onClick={findPassword}>임시 비밀번호 전송</ActiveButton>
+      ) : (
+        <NonActiveButton onClick={findPassword}>
+          임시 비밀번호 전송
+        </NonActiveButton>
+      )}
+
       <SmallLinkButton>회원가입</SmallLinkButton>
       {openModal && <Modal setOpenModal={setOpenModal} />}
     </ComponentWrapper>

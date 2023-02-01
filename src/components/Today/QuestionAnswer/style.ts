@@ -49,6 +49,7 @@ export const ContentInput = styled.textarea`
 `
 
 export const PreviewImg = styled.img`
+  position: relative;
   width: 286px;
   height: 190px;
   border-radius: 20px;
@@ -57,4 +58,13 @@ export const PreviewVideo = styled.video`
   width: 286px;
   height: 190px;
   border-radius: 20px;
+`
+
+export const DeleteButton = styled.button`
+  position: relative;
+  left: 88%;
+  bottom: 177px;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
 `

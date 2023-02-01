@@ -81,6 +81,7 @@ export const SmallLinkButton = styled.div`
 `
 
 export const Inputs = styled.div<Inputs>`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -90,21 +91,21 @@ export const Inputs = styled.div<Inputs>`
 `
 
 export const InputWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
 `
 
 export const Input = styled.input`
+  position: relative;
   width: 100%;
   border: none;
   border-bottom: 1px solid var(--light-gray);
   font-size: var(--small);
   line-height: 28px;
-
   &:focus {
     outline: none;
   }
-
   ::placeholder {
     font-size: var(--mid);
     color: var(--light-gray);
@@ -126,4 +127,47 @@ export const Success = styled.div`
   color: var(--blue);
   font-size: var(--more-small);
   line-height: 28px;
+`
+export const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(29, 31, 0, 0.8);
+`
+
+export const ModalWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  padding-bottom: 30px;
+  border-radius: 30px;
+  background-color: #fff;
+`
+
+export const CloseButton = styled.img`
+  align-self: flex-end;
+  margin-bottom: 10px;
+  cursor: pointer;
+`
+
+export const ClearButton = styled.img`
+  position: absolute;
+  top: 20px;
+  right: 0;
+  cursor: pointer;
+`
+export const InfoMsg = styled.div`
+  margin: 30px 0;
+  font-size: var(--mid);
+  text-align: center;
+`
+export const ModalButton = styled(ActiveButton)`
+  width: 286px;
 `

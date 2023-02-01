@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { GreenComponentWrapper } from '../../style/CommonStyles'
+import { useCookies } from 'react-cookie'
+import { Link } from 'react-router-dom'
+import { GreenComponentWrapper, Title } from '../../style/CommonStyles'
 import {
   CalenderHeader,
   DateWrapper,
@@ -11,17 +13,19 @@ import {
   DayOfWeek,
   CheckToday,
   Day,
+  Feeling,
+  FeelingImg,
 } from './style'
-import { Title } from '../../style/CommonStyles'
 import moment from 'moment'
-import { useCookies } from 'react-cookie'
 import Menu from '../Menu/Menu'
 import Footer from '../Footer/Footer'
+import { API_URL } from '../../constant'
+import { matchFeeling } from '../util/usefulFunctions'
 function Calender() {
   const [cookies] = useCookies(['accessToken', 'password'])
-  const [todaies, setTodaies] = useState<string[]>([])
-  let userId: string | null = localStorage.getItem('userId')
+  const [todaies, setTodaies] = useState<any[]>([])
   const [getMoment, setMoment] = useState(moment())
+  let userId: string | null = localStorage.getItem('userId')
   const today = getMoment // today == moment()   입니다.
   const firstWeek = today.clone().startOf('month').week()
   const lastWeek =
@@ -37,46 +41,73 @@ function Calender() {
         <tr key={week}>
           {Array(7)
             .fill(0)
-            .map((data, index) => {
+            .map((_data, index) => {
               let days = today
                 .clone()
                 .startOf('year')
                 .week(week)
                 .startOf('week')
                 .add(index, 'day')
+              // console.log('days' + days.format('MM'))
+              // console.log(today.format('MM'))
               if (moment().format('YYYYMMDD') === days.format('YYYYMMDD')) {
+                //오늘이면
                 return (
                   <Day key={index}>
-                    <span
+                    <div
                       style={{
-                        padding: '0 6px',
+                        width: '70%',
+                        marginLeft: '7px',
                         borderRadius: '8px',
                         backgroundColor: 'var(--light-green)',
                       }}
                     >
                       {days.format('D')}
-                    </span>
-                    {/* <Link> */}
+                    </div>
+                    {todaies.map((x: any) => {
+                      const [, , day] = x.creationDay.split('-')
+                      if (day === days.format('D')) {
+                        return (
+                          <>
+                            <Link to={`/todaylist/${x.postId}`}>
+                              <FeelingImg
+                                src={matchFeeling(x.todayFeeling, 0)}
+                              />
+                            </Link>
+                          </>
+                        )
+                      }
+                    })}
                     <CheckToday />
-                    {/* </Link> */}
                   </Day>
                 )
               } else if (days.format('MM') !== today.format('MM')) {
+                // 전 달이나 다음 달 날짜라면
                 return (
                   <Day key={index}>
-                    <span style={{ opacity: 0.2 }}>{days.format('D')}</span>
-                    {/* <Link> */}
+                    <div style={{ opacity: 0.2 }}>{days.format('D')}</div>
                     <CheckToday style={{ opacity: 0.2 }} />
-                    {/* </Link> */}
                   </Day>
                 )
               } else {
                 return (
                   <Day key={index}>
-                    <span>{days.format('D')}</span>
-                    {/* <Link> */}
+                    <div>{days.format('D')}</div>
+                    {todaies.map((x) => {
+                      const [, , day] = x.creationDay.split('-')
+                      if (day === days.format('D')) {
+                        return (
+                          <>
+                            <Link to={`/todaylist/${x.postId}`}>
+                              <FeelingImg
+                                src={matchFeeling(x.todayFeeling, 0)}
+                              />
+                            </Link>
+                          </>
+                        )
+                      }
+                    })}
                     <CheckToday />
-                    {/* </Link> */}
                   </Day>
                 )
               }
@@ -90,11 +121,14 @@ function Calender() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`post/find-user-and-month/${userId}/1`, {
-          headers: {
-            Authorization: `Bearer ${cookies.accessToken}`,
+        const res = await axios.get(
+          `${API_URL}/post/find-user-and-month/${userId}/${today.format('MM')}`,
+          {
+            headers: {
+              Authorization: `Bearer ${cookies.accessToken}`,
+            },
           },
-        })
+        )
         setTodaies(res.data.result.postInfoDtos)
         console.log(res)
       } catch (e) {
@@ -102,7 +136,7 @@ function Calender() {
       }
     }
     fetchData()
-  }, [])
+  }, [today.format('MM')])
 
   return (
     <GreenComponentWrapper>

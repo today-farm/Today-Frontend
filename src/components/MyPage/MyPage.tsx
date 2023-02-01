@@ -15,18 +15,23 @@ import {
   Menu,
   LogoutButton,
   MyPageMenu,
+  LinkButton,
 } from './style'
-// import RightButton from 'img/icon_right.png';
 import { User } from '../Interface'
 
 export default function MyPage() {
   const RightButton = 'img/icons/icon_right.png'
-  const [cookies] = useCookies(['accessToken'])
+  const [cookies, , removeCookie] = useCookies(['accessToken'])
   const [info, setInfo] = useState<User>({
     email: '',
     nickname: '',
     img: '',
   })
+
+  const hanldeLogout = () => {
+    removeCookie('accessToken')
+    window.location.href = '/login'
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,8 +43,6 @@ export default function MyPage() {
           Authorization: `Bearer ${cookies.accessToken}`,
         },
       }).then((res) => {
-        console.log(res)
-        // setInfo(['email']: res.data.result.email);
         setInfo((prev) => ({
           ...prev,
           ['email']: res.data.result.email,
@@ -63,22 +66,22 @@ export default function MyPage() {
               <Email>{info.email}</Email>
             </UserInfo>
             <Link to="/account">
-              <img src={RightButton} />
+              <LinkButton src={RightButton} />
             </Link>
           </Profile>
           <Menu>
             <p>비밀번호 변경</p>
             <Link to="/change/password">
-              <img src={RightButton} />
+              <LinkButton src={RightButton} />
             </Link>
           </Menu>
           <Menu>
             <p>문의사항</p>
-            <img src={RightButton} />
+            <LinkButton src={RightButton} />
           </Menu>
           <LogoutButton>
             <p>로그아웃</p>
-            <img src={RightButton} />
+            <LinkButton src={RightButton} onClick={hanldeLogout} />
           </LogoutButton>
         </MyPageMenu>
       </MyPageWrapper>

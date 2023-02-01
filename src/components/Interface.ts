@@ -3,12 +3,18 @@ export interface User {
   password?: string
   nickname: string
   img?: string
+  passwordCheck?: string
 }
 
 export interface errorData {
   emailError?: string
   passwordError: string
   passwordCheckError: string
+}
+
+export interface Icrops {
+  cropNumber: number
+  cropStatus: string
 }
 
 export interface Icontent {

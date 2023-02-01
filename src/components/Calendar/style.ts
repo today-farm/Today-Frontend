@@ -42,6 +42,7 @@ export const DayOfWeek = styled.li`
   }
 `
 export const CheckToday = styled.div`
+  position: absolute;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -49,4 +50,20 @@ export const CheckToday = styled.div`
   margin-left: 8px;
   margin-top: 5px;
 `
-export const Day = styled.td``
+export const Day = styled.td`
+  position: relative;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+`
+
+export const Feeling = styled.div``
+
+export const FeelingImg = styled.img`
+  position: absolute;
+  z-index: 1;
+  right: 5px;
+  width: 40px;
+  height: 32px;
+  margin-top: 5px;
+`
