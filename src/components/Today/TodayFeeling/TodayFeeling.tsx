@@ -8,7 +8,7 @@ import {
 import Header from '../../Header/Header'
 import { FeelingWrapper, Title, Feelings, Feeling } from './style'
 import { todayYearMonthDate } from '../TodayDate'
-
+import { CLIENT_URL } from '../../../constant'
 interface Feelings {
   img: string
   name: string
@@ -28,7 +28,7 @@ function TodayFeeling(props: Iprops) {
   }
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/data/feeling.json`)
+      .get(`${CLIENT_URL}/data/feeling.json`)
       .then((res) => setFeelings(res.data))
   }, [])
 
