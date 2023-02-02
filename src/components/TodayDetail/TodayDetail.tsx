@@ -19,6 +19,7 @@ import {
   FeelingImg,
 } from './style'
 import { Title } from '../Header/style'
+import { PRIVATE_ROUTE } from '../../Route'
 
 export default function TodayDetail() {
   const [cookies] = useCookies(['accessToken', 'password'])
@@ -58,7 +59,7 @@ export default function TodayDetail() {
         },
       })
       .then((res) => {
-        navigate('/calendar')
+        navigate(PRIVATE_ROUTE.CALENDAR.path)
       })
       .catch((err) => {
         console.log(err)
@@ -71,7 +72,7 @@ export default function TodayDetail() {
         <Title>
           {year}년 {month}월 {day}일
         </Title>
-        <Link to="/calendar">
+        <Link to={PRIVATE_ROUTE.CALENDAR.path}>
           <img src="/img/icons/icon_close.png" />
         </Link>
       </Header>
@@ -95,7 +96,7 @@ export default function TodayDetail() {
           )
         })}
       </ContentWrapper>
-      <Link to={`/todaylist/update/${todayId}`}>
+      <Link to={(PRIVATE_ROUTE.TODAY_UPDATE.path = `/update/${todayId}`)}>
         <ActiveButton>기록 수정</ActiveButton>
       </Link>
       <DeleteButton onClick={deleteToday}>기록 삭제</DeleteButton>

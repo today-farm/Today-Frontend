@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { PRIVATE_ROUTE } from '../../../Route'
 import { GreenComponentWrapper } from '../../../style/CommonStyles'
 import { ContentsWrapper, SuccessImg, Text, LinkButton } from './style'
 
@@ -15,7 +16,7 @@ function SuccessPost() {
           기록을 꺼내볼 수 있어요.
         </Text>
       </ContentsWrapper>
-      <Link to="/">
+      <Link to={PRIVATE_ROUTE.FARM.path}>
         <LinkButton>확인</LinkButton>
       </Link>
     </GreenComponentWrapper>

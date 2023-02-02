@@ -18,6 +18,7 @@ import {
   LinkButton,
 } from './style'
 import { User } from '../Interface'
+import { PRIVATE_ROUTE, PUBLIC_ROUTE } from './../../Route'
 
 export default function MyPage() {
   const RightButton = 'img/icons/icon_right.png'
@@ -30,7 +31,7 @@ export default function MyPage() {
 
   const hanldeLogout = () => {
     removeCookie('accessToken')
-    window.location.href = '/login'
+    window.location.href = PUBLIC_ROUTE.LOGIN.path
   }
 
   useEffect(() => {
@@ -65,13 +66,13 @@ export default function MyPage() {
               <Nickname>{info.nickname}</Nickname>
               <Email>{info.email}</Email>
             </UserInfo>
-            <Link to="/account">
+            <Link to={PRIVATE_ROUTE.ACCOUNT.path}>
               <LinkButton src={RightButton} />
             </Link>
           </Profile>
           <Menu>
             <p>비밀번호 변경</p>
-            <Link to="/change/password">
+            <Link to={PRIVATE_ROUTE.CHANGE_PASSWORD.path}>
               <LinkButton src={RightButton} />
             </Link>
           </Menu>
