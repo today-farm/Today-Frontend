@@ -24,6 +24,7 @@ export default function MainFarm() {
         setGrowingCrops(res.data.result.growingCrops)
       })
   }, [])
+
   return (
     <GreenComponentWrapper>
       <Menu />

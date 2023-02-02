@@ -9,6 +9,7 @@ import {
 import Header from '../../Header/Header'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import {
   ProfileImg,
   NonDoubleCheckButton,
@@ -17,6 +18,7 @@ import {
 } from './style'
 import ImgInput from '../../FileInput/ImgInput/ImgInput'
 import { API_URL, IMG_URL } from '../../../constant'
+import { PRIVATE_ROUTE } from '../../../Route'
 
 interface User {
   nickname: string
@@ -24,6 +26,7 @@ interface User {
 }
 
 function Account() {
+  const navigate = useNavigate()
   const [cookies] = useCookies(['accessToken'])
   const [info, setInfo] = useState<User>({
     nickname: '',
@@ -108,6 +111,7 @@ function Account() {
       })
       .then((res) => {
         alert('업데이트 완료!')
+        navigate(PRIVATE_ROUTE.MYPAGE.path)
       })
       .catch((err) => {
         if (err.response.data.errorCode === 2004) {

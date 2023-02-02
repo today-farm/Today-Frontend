@@ -16,6 +16,7 @@ import {
 import Header from '../../Header/Header'
 import { validatePassword } from '../../util/usefulFunctions'
 import { API_URL } from '../../../constant'
+import { PRIVATE_ROUTE } from '../../../Route'
 
 interface password {
   currentPassword: string
@@ -114,7 +115,7 @@ function ChangePassword() {
           ...prev,
           currentPasswordError: '',
         }))
-        navigate('/mypage')
+        navigate(PRIVATE_ROUTE.MYPAGE.path)
       })
       .catch((err) => {
         if (err.response.data.errorCode === 2005) {

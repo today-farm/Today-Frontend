@@ -15,6 +15,8 @@ import {
   Text,
 } from './style'
 import CanPostInfoModal from './CanPostInfoModal/CanPostInfoModal'
+import { PRIVATE_ROUTE } from '../../Route'
+import { PUBLIC_ROUTE } from './../../Route'
 interface Iprops {
   main?: boolean
 }
@@ -54,7 +56,7 @@ export default function Footer(props: Iprops) {
       <FarmIconWrapper>
         {props.main ? (
           canWritePost === true ? (
-            <Link to="/post">
+            <Link to={PRIVATE_ROUTE.TODAY_POST.path}>
               <RabbitImg src="/img/character/mainRabbit.png" />
             </Link>
           ) : (
@@ -67,17 +69,17 @@ export default function Footer(props: Iprops) {
           )
         ) : (
           <FarmIcon>
-            <Link to="/">
+            <Link to={PRIVATE_ROUTE.FARM.path}>
               <img src="/img/icons/icon_farm.png" />
             </Link>
           </FarmIcon>
         )}
       </FarmIconWrapper>
       <IconWrapper>
-        <Link to="/calendar">
+        <Link to={PRIVATE_ROUTE.CALENDAR.path}>
           <Icon src="/img/icons/icon_calendar.png" />
         </Link>
-        <Link to="/friends">
+        <Link to={PRIVATE_ROUTE.FRIEND.path}>
           <Icon src="/img/icons/icon_friends2.png" />
         </Link>
       </IconWrapper>

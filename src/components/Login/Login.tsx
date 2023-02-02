@@ -16,6 +16,8 @@ import {
 import { Links, LoginInputs, Line } from './style'
 import { API_URL } from '../../constant'
 import { ActiveButton } from './../../style/CommonStyles'
+import { PUBLIC_ROUTE, PRIVATE_ROUTE } from './../../Route'
+
 interface User {
   email: string
   password: string
@@ -78,7 +80,7 @@ export default function Login() {
             emailError: '',
             passwordError: '',
           }))
-          navigate('/')
+          navigate(PRIVATE_ROUTE.FARM.path)
         })
         .catch((err) => {
           setError((prev) => ({
@@ -150,11 +152,11 @@ export default function Login() {
         <NonActiveButton onClick={handleLogin}>로그인</NonActiveButton>
       )}
       <Links>
-        <Link to="/signup">
+        <Link to={PUBLIC_ROUTE.SIGNUP.path}>
           <SmallLinkButton>회원가입</SmallLinkButton>
         </Link>
         <Line>|</Line>
-        <Link to="/find/password">
+        <Link to={PUBLIC_ROUTE.FIND_PASSWORD.path}>
           <SmallLinkButton>비밀번호 찾기</SmallLinkButton>
         </Link>
       </Links>

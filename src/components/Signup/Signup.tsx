@@ -7,6 +7,7 @@ import EmailPassword from './EmailPassword/EmailPassword'
 import Profile from './Profile/Profile'
 import { User } from '../Interface'
 import { API_URL } from '../../constant'
+import { PUBLIC_ROUTE } from './../../Route'
 function Signup() {
   const navigate = useNavigate()
   const [file, setFile] = useState<File | null>(null)
@@ -36,7 +37,7 @@ function Signup() {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then((res) => {
-        navigate('/login')
+        navigate(PUBLIC_ROUTE.LOGIN.path)
       })
   }
 

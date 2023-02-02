@@ -59,10 +59,6 @@ export default function Friend() {
       })
       .then((res) => {
         console.log(res)
-        // setFriends([
-        //   ...res.data.result.friendWithEachOtherInfos,
-        //   ...res.data.result.sendRequestFriendInfos,
-        // ])
         setFriends(res.data.result.friendWithEachOtherInfos)
         setPrevFriends(res.data.result.sendRequestFriendInfos)
       })
@@ -174,10 +170,7 @@ export default function Friend() {
       <Footer />
       {openFindModal && <FindFriendModal setOpenModal={setOpenFindModal} />}
       {openRequestModal && (
-        <FriendRequestModal
-          setOpenModal={setOpenRequestModal}
-          // openModal={openRequestModal}
-        />
+        <FriendRequestModal setOpenModal={setOpenRequestModal} />
       )}
     </GreenComponentWrapper>
   )

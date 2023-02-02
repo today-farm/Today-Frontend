@@ -16,6 +16,7 @@ import { Contents, SecretWrapper, OpenButton, NonActiveButton } from './style'
 import TodayFeeling from './TodayFeeling/TodayFeeling'
 import Modal from './Modal/Modal'
 import { API_URL } from '../../constant'
+import { PRIVATE_ROUTE } from '../../Route'
 interface IpreviewImg {
   previewImg1: string[]
   previewImg2: string[]
@@ -189,7 +190,7 @@ export default function Today() {
       })
       .then((res) => {
         console.log('글 등록 성공!')
-        navigate('/success')
+        navigate(PRIVATE_ROUTE.SUCCESS_POST.path)
       })
       .catch((err) => {
         console.log(err)

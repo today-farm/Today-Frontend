@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { Link } from 'react-router-dom'
+import { PRIVATE_ROUTE_ARR, PUBLIC_ROUTE_ARR, PRIVATE_ROUTE } from '../../Route'
 import { GreenComponentWrapper, Title } from '../../style/CommonStyles'
 import {
   CalenderHeader,
@@ -69,7 +70,11 @@ function Calender() {
                       if (day === days.format('D')) {
                         return (
                           <>
-                            <Link to={`/todaylist/${x.postId}`}>
+                            <Link
+                              to={
+                                (PRIVATE_ROUTE.TODAY_DETAIL.path = `/${x.postId}`)
+                              }
+                            >
                               <FeelingImg
                                 src={matchFeeling(x.todayFeeling, 0)}
                               />
@@ -98,7 +103,11 @@ function Calender() {
                       if (day === days.format('D')) {
                         return (
                           <>
-                            <Link to={`/todaylist/${x.postId}`}>
+                            <Link
+                              to={
+                                (PRIVATE_ROUTE.TODAY_DETAIL.path = `/${x.postId}`)
+                              }
+                            >
                               <FeelingImg
                                 src={matchFeeling(x.todayFeeling, 0)}
                               />
