@@ -1,46 +1,57 @@
-# Getting Started with Create React App
+# **🌾하루 농장**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## **프로젝트 소개**
+- 프로젝트 명: 하루 농장
+- 프로젝트 기간: 2022.11 ~ 
+- 기술 스택: ![html](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=FFFFFF)
+![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=black)
+![Typescript](https://img.shields.io/badge/Typescript-3178C6?style=flat&logo=Typescript&logoColor=FFFFFF)
+![StyledComponents](https://img.shields.io/badge/StyledComponents-DB7093?style=flat&logo=styled-components&logoColor=white)
+![AmazonS3](https://img.shields.io/badge/AmazonS3-black?style=flat&logo=AmazonS3&logoColor=white)
+![Figma](https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=figma&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-dd8b00?style=flat&logo=MySQL&logoColor=white)
+![SpringBoot](https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=SpringBoot&logoColor=white)
+![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=flat&logo=Jenkins&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=Docker&logoColor=white)
+![NGINX](https://img.shields.io/badge/NGINX-009639?style=flat&logo=NGINX&logoColor=white)
 
-## Available Scripts
+</br></br>
+## **하루 농장이란?**
+| 바쁜 일상 속에서 그냥 지나갈 수 있는 하루를 하루 농장을 통해 기록해보자! <br>
+일기를 작성하면서 농장을 가꾸어 나갈 수 있는 일기 웹앱사이트입니다. 
+</br></br>
+## **상세 기능**
+### 유저
+- 회원가입, 로그인
+- 사용자 정보 조회
+- 사용자 정보 수정
+- 사용자 탈퇴 
+- 회원 검색
+- 이메일 인증 코드
+- 비밀번호 찾기
+- 비밀번호 변경
+- 닉네임 중복 체크 
+### 하루 게시글
+- 하루 작성
+- 하루 수정
+- 하루 삭제 
+- 캘린더(월별 하루 글 조회)
+- 하루 개별 조회
+### 친구
+- 친구 요청
+- 친구 요청 수락 및 거절
+- 친구 삭제
+- 친구 목록 조회
+### 작물
+- 월별 작물 조회
+- 연속 게시글 수로 작물 업그레이드
+- 30일 다 채울시, 황금 작물
 
-In the project directory, you can run:
+</br></br>
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## **팀원 및 역할**
+| 이름         | 담당 업무 |
+| ------------ | --------- |
+| 심혜윤       | DE        |
+| 홍희선       | FE        |
+| 김성훈       | BE        |
