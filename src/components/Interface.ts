@@ -13,8 +13,10 @@ export interface errorData {
 }
 
 export interface Icrops {
+  // data: {
   cropNumber: number
   cropStatus: string
+  // }
 }
 
 export interface Icontent {
