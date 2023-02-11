@@ -16,7 +16,7 @@ import Friend from './components/Friend/Friend'
 
 export const PUBLIC_ROUTE = {
   SIGNUP: {
-    path: '/signup',
+    path: '/signup/*',
     element: Signup,
   },
   LOGIN: {
