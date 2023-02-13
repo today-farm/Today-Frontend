@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
-import { validateEmail } from '../util/usefulFunctions'
 import {
   ComponentWrapper,
   Input,
@@ -17,91 +16,66 @@ import { Links, LoginInputs, Line } from './style'
 import { API_URL } from '../../constant'
 import { ActiveButton } from './../../style/CommonStyles'
 import { PUBLIC_ROUTE, PRIVATE_ROUTE } from './../../Route'
-
-interface User {
-  email: string
-  password: string
-}
+import { emailRegex } from '../util/usefulFunctions'
+import { useForm } from 'react-hook-form'
 
 interface errorData {
   emailError: string
   passwordError: string
 }
 
+interface IForm {
+  email: string
+  password: string
+}
+
 export default function Login() {
+  const {
+    register,
+    watch,
+    formState: { errors },
+    reset,
+  } = useForm<IForm>({
+    mode: 'onChange',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
   const navigate = useNavigate()
   const [, setCookie] = useCookies<string>(['accessToken'])
-  const [info, setInfo] = useState<User>({
-    email: '',
-    password: '',
-  })
   const [error, setError] = useState<errorData>({
     emailError: '',
     passwordError: '',
   })
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name === 'email') {
-      setInfo((prev) => ({
-        ...prev,
-        [e.target.name]: e.target.value,
-      }))
-      if (!validateEmail(e.target.value)) {
-        setError((prev) => ({
-          ...prev,
-          emailError: '올바르지 않은 이메일 형식이에요! 다시 확인해 주세요.',
-        }))
-      } else {
+
+  const handleLogin = () => {
+    axios
+      .post(`${API_URL}/login`, {
+        email: watch('email'),
+        password: watch('password'),
+      })
+      .then((res) => {
+        let refreshToken: string = res.headers['authorization-refresh']!
+        let accessToken = res.headers.authorization
+        let userId = res.data.userId
+        localStorage.setItem('userId', userId)
+        setCookie('accessToken', accessToken)
+        localStorage.setItem('refreshToken', refreshToken)
         setError((prev) => ({
           ...prev,
           emailError: '',
+          passwordError: '',
         }))
-      }
-    } else if (e.target.name === 'password') {
-      setInfo((prev) => ({
-        ...prev,
-        [e.target.name]: e.target.value,
-      }))
-    }
-  }
-
-  const handleLogin = () => {
-    if (error.emailError === '' && info.email !== '' && info.password !== '') {
-      axios
-        .post(`${API_URL}/login`, info)
-        .then((res) => {
-          let refreshToken: string = res.headers['authorization-refresh']!
-          let accessToken = res.headers.authorization
-          let userId = res.data.userId
-          localStorage.setItem('userId', userId)
-          setCookie('accessToken', accessToken)
-          localStorage.setItem('refreshToken', refreshToken)
-          setError((prev) => ({
-            ...prev,
-            emailError: '',
-            passwordError: '',
-          }))
-          navigate(PRIVATE_ROUTE.FARM.path)
-        })
-        .catch((err) => {
-          setError((prev) => ({
-            ...prev,
-            emailError: '가입되지 않은 이메일이에요! 다시 확인해 주세요.',
-            passwordError: '비밀번호가 잘못되었어요! 다시 확인해 주세요.',
-          }))
-        })
-    }
-  }
-
-  const clearInput = (target: string) => {
-    target === 'email'
-      ? setInfo((prev) => ({
+        navigate(PRIVATE_ROUTE.FARM.path)
+      })
+      .catch((err) => {
+        setError((prev) => ({
           ...prev,
-          ['email']: '',
+          emailError: '가입되지 않은 이메일이에요! 다시 확인해 주세요.',
+          passwordError: '비밀번호가 잘못되었어요! 다시 확인해 주세요.',
         }))
-      : setInfo((prev) => ({
-          ...prev,
-          ['password']: '',
-        }))
+      })
   }
 
   return (
@@ -112,41 +86,63 @@ export default function Login() {
           <Input
             type="text"
             placeholder="이메일을 입력해 주세요."
-            name="email"
-            value={info.email}
-            onChange={handleChange}
+            value={watch('email')}
+            {...register('email', {
+              required: '이메일을 입력해주세요.',
+              pattern: {
+                value: emailRegex,
+                message: '올바르지 않은 이메일 형식이에요! 다시 확인해 주세요.',
+              },
+            })}
           />
-          {info.email !== '' && (
+          {watch('email') !== '' && (
             <ClearButton
               src="/img/icons/icon_input_delete.png"
               onClick={() => {
-                clearInput('email')
+                reset({
+                  email: '',
+                })
+                setError((prev) => ({
+                  ...prev,
+                  emailError: '',
+                }))
               }}
             />
           )}
-          <Error>{error.emailError}</Error>
+          <Error>{errors?.email?.message}</Error>
+          {!errors?.email?.message && <Error>{error?.emailError}</Error>}
         </InputWrapper>
         <InputWrapper>
           <Label>비밀번호</Label>
           <Input
             type="password"
             placeholder="비밀번호를 입력해 주세요."
-            value={info.password}
-            name="password"
-            onChange={handleChange}
+            {...register('password', {
+              required: '비밀번호를 입력해주세요!',
+            })}
           />
-          {info.password !== '' && (
+          {watch('password') !== '' && (
             <ClearButton
               src="/img/icons/icon_input_delete.png"
               onClick={() => {
-                clearInput('password')
+                reset({
+                  password: '',
+                })
+                setError((prev) => ({
+                  ...prev,
+                  passwordError: '',
+                }))
               }}
             />
           )}
-          <Error>{error.passwordError}</Error>
+          <Error>{errors?.password?.message}</Error>
+          {!errors?.password?.message && <Error>{error?.passwordError}</Error>}
         </InputWrapper>
       </LoginInputs>
-      {info.email !== '' && info.password !== '' ? (
+      {watch('email') !== '' &&
+      watch('password') !== '' &&
+      errors?.email?.message === undefined &&
+      errors?.password?.message === undefined ? (
         <ActiveButton onClick={handleLogin}>로그인</ActiveButton>
       ) : (
         <NonActiveButton onClick={handleLogin}>로그인</NonActiveButton>

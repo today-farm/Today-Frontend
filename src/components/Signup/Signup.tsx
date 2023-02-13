@@ -31,7 +31,6 @@ import Header from '../Header/Header'
 
 function Signup() {
   const navigate = useNavigate()
-  const [active, setActive] = useState<boolean>(true)
   const [file, setFile] = useState<File | null>(null)
   const [emailAuth, setEmailAuth] = useState<string>('')
   const [height, setHeight] = useState<number>(220)
