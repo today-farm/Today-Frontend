@@ -15,14 +15,15 @@ import {
   ProfileImg,
 } from './style'
 import axios from 'axios'
-import { validateNickname } from '../../util/usefulFunctions'
-import { User } from '../../Interface'
+import { nicknameRegex } from '../../util/usefulFunctions'
 import ImgInput from '../../FileInput/ImgInput/ImgInput'
 import { API_URL } from '../../../constant'
+
 interface Iprops {
-  info: User
-  setInfo: Dispatch<SetStateAction<User>>
   setFile: Dispatch<SetStateAction<File | null>>
+  register: any
+  watch: any
+  errors: any
   handleSignup: () => void
 }
 
@@ -31,21 +32,9 @@ function Profile(props: Iprops) {
   const [success, setSuccess] = useState<string>('')
   const [previewImg, setPreviewImg] = useState<string>()
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!validateNickname(e.target.value)) {
-      setError('2자 이상 8자 이하로 숫자, 한글, 영어만 가능해요!')
-    } else {
-      setError('')
-      props.setInfo((prev) => ({
-        ...prev,
-        [e.target.name]: e.target.value,
-      }))
-    }
-  }
-
   const handleDoubleCheck = async () => {
     const formData = new FormData()
-    await formData.append('nickname', props.info.nickname)
+    await formData.append('nickname', props.watch('nickname'))
     return axios
       .post(`${API_URL}/sign-up/nickname-duplicate-check`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -94,11 +83,22 @@ function Profile(props: Iprops) {
         />
         <ImgInput handleFile={handleFile} handleRemoveImg={handleRemoveImg} />
         <NickNameInput
-          name="nickname"
           placeholder="사용하실 닉네임을 입력해주세요."
-          onChange={handleChange}
+          {...props.register('nickname', {
+            required: '닉네임을 입력해주세요.',
+            minLength: {
+              value: 2,
+            },
+            maxLength: {
+              value: 8,
+            },
+            pattern: {
+              value: nicknameRegex,
+              message: '2자 이상 8자 이하로 숫자, 한글, 영어만 가능해요!',
+            },
+          })}
         ></NickNameInput>
-        <Error>{error}</Error>
+        <Error>{props.errors?.nickname?.message}</Error>
         <Success>{success}</Success>
         <DoubleCheckButton onClick={handleDoubleCheck}>
           닉네임 중복 확인

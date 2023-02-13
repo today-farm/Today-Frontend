@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { ClearButton } from '../../../style/CommonStyles'
-import '../../../style/GlobalStyle'
+import { ClearButton } from '../../style/CommonStyles'
+import '../../style/GlobalStyle'
 
 export const EmailInput = styled.div`
   display: flex;
