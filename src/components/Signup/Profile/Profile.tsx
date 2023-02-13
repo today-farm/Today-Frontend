@@ -16,13 +16,10 @@ import {
 } from './style'
 import axios from 'axios'
 import { nicknameRegex } from '../../util/usefulFunctions'
-import { User } from '../../Interface'
 import ImgInput from '../../FileInput/ImgInput/ImgInput'
 import { API_URL } from '../../../constant'
 
 interface Iprops {
-  // info: User
-  // setInfo: Dispatch<SetStateAction<User>>
   setFile: Dispatch<SetStateAction<File | null>>
   register: any
   watch: any

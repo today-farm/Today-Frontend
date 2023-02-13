@@ -9,11 +9,7 @@ import { PUBLIC_ROUTE } from './../../Route'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { emailRegex, passwordRegex } from '../util/usefulFunctions'
-import {
-  EmailInput,
-  EmailAuthInput,
-  SignUpClearButton,
-} from './EmailPassword/style'
+import { EmailInput, EmailAuthInput, SignUpClearButton } from './style'
 import {
   ComponentWrapper,
   ActiveButton,
