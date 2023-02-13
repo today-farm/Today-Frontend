@@ -50,8 +50,7 @@ function Signup() {
     register,
     watch,
     getValues,
-    handleSubmit,
-    formState: { errors, dirtyFields },
+    formState: { errors },
     reset,
   } = useForm<IForm>({
     mode: 'onChange',
