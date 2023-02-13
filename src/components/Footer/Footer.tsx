@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useQuery } from 'react-query'
 import { useCookies } from 'react-cookie'
 import { Link } from 'react-router-dom'
+import { checkPostToday } from './../../api'
 import { API_URL } from '../../constant'
 import {
   FooterWrapper,
@@ -23,26 +24,17 @@ interface Iprops {
 
 export default function Footer(props: Iprops) {
   const [cookies] = useCookies(['accessToken'])
-  const [canWritePost, setCanWritePost] = useState<boolean>(true)
   const [openModal, setOpenModal] = useState<boolean>(false)
-
-  useEffect(() => {
-    axios
-      .get(`${API_URL}/post/check-today-post`, {
-        headers: { Authorization: `Bearer ${cookies.accessToken}` },
-      })
-      .then((res) => {
-        console.log(res.data.result)
-        setCanWritePost(res.data.result.canWritePost)
-      })
-  }, [])
+  const { isLoading, data } = useQuery<boolean>('todayPost', () =>
+    checkPostToday(cookies.accessToken),
+  )
 
   return (
     <FooterWrapper>
       {openModal && <CanPostInfoModal setOpenModal={setOpenModal} />}
       {props.main && (
         <TextWrapper>
-          {canWritePost === true ? (
+          {data === true ? (
             <TextBox img="/img/Union.png">
               <Text>오늘 하루는 어땠나요?</Text>
             </TextBox>
@@ -55,7 +47,7 @@ export default function Footer(props: Iprops) {
       )}
       <FarmIconWrapper>
         {props.main ? (
-          canWritePost === true ? (
+          data === true ? (
             <Link to={PRIVATE_ROUTE.TODAY_POST.path}>
               <RabbitImg src="/img/character/mainRabbit.png" />
             </Link>

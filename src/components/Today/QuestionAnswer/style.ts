@@ -60,11 +60,8 @@ export const PreviewVideo = styled.video`
   border-radius: 20px;
 `
 
-export const DeleteButton = styled.button`
+export const DeleteButton = styled.img`
   position: relative;
-  left: 88%;
+  left: 86%;
   bottom: 177px;
-  padding: 5px;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
 `

@@ -52,6 +52,7 @@ export default function QuestionAnswer(props: Iprops) {
   const params = useParams()
   const todayId = params.todayId
   const [cookies] = useCookies(['accessToken', 'password'])
+
   useEffect(() => {
     if (ref === null || ref.current === null) {
       return
@@ -68,6 +69,19 @@ export default function QuestionAnswer(props: Iprops) {
     ref.current.style.height = ref.current.scrollHeight + 'px'
   }, [])
 
+  // const image = useRef() as React.MutableRefObject<HTMLDivElement>
+  const image = useRef<HTMLImageElement>(null)
+
+  const notShowFile = () => {
+    console.log('hi')
+    console.log(image)
+    if (image === null || image.current === null) {
+      return
+    }
+    // console.log(image.current?.style.display)
+    image.current.style.display = 'none'
+    //console.log(image.current)
+  }
   return (
     <ContentWrapper>
       <Question>{props.question}</Question>
@@ -80,22 +94,27 @@ export default function QuestionAnswer(props: Iprops) {
         return (
           <div key={id}>
             <PreviewImg
+              ref={image}
+              className={`image${id}`}
               // style={{ display: display }}
               src={`${IMG_URL}${image.postImgUrl}`}
             />
             <DeleteButton
-              style={{ display: display }}
-              onClick={() => {
+              src="/img/icons/icon_file_delete.png"
+              // style={{ display: display }}
+              onClick={(e) => {
                 props.setDeleteImgId?.((imgId: any) => [
                   ...imgId,
                   image.postImgUrlId,
                 ])
+                // handleShowFile(e)
+                notShowFile()
+                e.currentTarget.style.display = 'none'
+                // props.handleDeleteImage(id, props.number, 'img')
                 // setDisplay('none')
                 // setActive(!active)
               }}
-            >
-              X
-            </DeleteButton>
+            />
           </div>
         )
       })}
@@ -103,21 +122,22 @@ export default function QuestionAnswer(props: Iprops) {
         return (
           <div key={id}>
             <PreviewVideo
-              style={{ display: display }}
-              src={`${IMG_URL}${video.postImgUrl}`}
+              // style={{ display: display }}
+              src={`${IMG_URL}${video.postVideoUrl}`}
             />
             <DeleteButton
-              style={{ display: display }}
-              onClick={() => {
-                props.setDeleteImgId?.((imgId: any) => [
-                  ...imgId,
-                  video.postImgUrlId,
+              src="/img/icons/icon_file_delete.png"
+              // style={{ display: display }}
+              onClick={(e) => {
+                props.setDeleteVideoId?.((videoId: any) => [
+                  ...videoId,
+                  video.postVideoUrlId,
                 ])
-                setDisplay('none')
+                e.currentTarget.style.display = 'none'
+                // props.handleDeleteImage(id, props.number)
+                // setDisplay('none')
               }}
-            >
-              X
-            </DeleteButton>
+            />
           </div>
         )
       })}
@@ -125,20 +145,18 @@ export default function QuestionAnswer(props: Iprops) {
         <div key={id}>
           <PreviewImg src={image} alt={`${image}-${id}`} />
           <DeleteButton
+            src="/img/icons/icon_file_delete.png"
             onClick={() => props.handleDeleteImage(id, props.number, 'img')}
-          >
-            x
-          </DeleteButton>
+          />
         </div>
       ))}
       {props.previewVideo?.map((video, id) => (
         <div key={id}>
           <PreviewVideo src={video} controls />
           <DeleteButton
+            src="/img/icons/icon_file_delete.png"
             onClick={() => props.handleDeleteImage(id, props.number)}
-          >
-            x
-          </DeleteButton>
+          />
         </div>
       ))}
       <ContentInput

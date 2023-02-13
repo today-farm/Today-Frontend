@@ -24,6 +24,7 @@ export default function TodayUpdate() {
   const [creationDay, setCreationDay] = useState('')
   const [deleteImgId, setDeleteImgId] = useState<number[]>([])
   const [deleteVideoId, setDeleteVideoId] = useState<number[]>([])
+  console.log(deleteImgId, deleteVideoId)
   const [todayFeeling, setTodayFeeling] = useState('')
   const [year, month, day] = creationDay.split('-')
   const [questionId, setQuestionId] = useState({
@@ -43,8 +44,8 @@ export default function TodayUpdate() {
   const [videoFile2, setVideoFile2] = useState<File[]>([])
   const [videoFile3, setVideoFile3] = useState<File[]>([])
   console.log(videoFile1)
-  console.log(videoFile2)
-  console.log(videoFile3)
+  // console.log(videoFile2)
+  // console.log(videoFile3)
   const [publicAccess, setPublicAccess] = useState<boolean>(true)
   const [openFeelingPage, setOpenFeelingPage] = useState<boolean>(true)
   const [style, setStyle] = useState({
@@ -60,6 +61,7 @@ export default function TodayUpdate() {
   const [previewVideo1, setPreviewVideo1] = useState<string[]>([])
   const [previewVideo2, setPreviewVideo2] = useState<string[]>([])
   const [previewVideo3, setPreviewVideo3] = useState<string[]>([])
+  console.log(previewVideo1)
 
   const handleImgFile = (
     index: number,
@@ -229,6 +231,7 @@ export default function TodayUpdate() {
         },
       })
       .then((res) => {
+        console.log(res.data.result.postQuestions)
         setPostQuestions(res.data.result.postQuestions)
         setCreationDay(res.data.result.creationDay)
         setTodayFeeling(res.data.result.todayFeeling)
