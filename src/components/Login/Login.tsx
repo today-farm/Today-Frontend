@@ -12,7 +12,7 @@ import {
   Error,
   ClearButton,
 } from '../../style/CommonStyles'
-import { Links, LoginInputs, Line } from './style'
+import { Logo, Links, LoginInputs, Line } from './style'
 import { API_URL } from '../../constant'
 import { ActiveButton } from './../../style/CommonStyles'
 import { PUBLIC_ROUTE, PRIVATE_ROUTE } from './../../Route'
@@ -80,6 +80,7 @@ export default function Login() {
 
   return (
     <ComponentWrapper>
+      <Logo src="img/logo.png" />
       <LoginInputs>
         <InputWrapper>
           <Label>이메일</Label>

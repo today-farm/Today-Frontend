@@ -28,6 +28,7 @@ import {
 import FindFriendModal from './FindFriendModal/FindFriendModal'
 import FriendRequestModal from './FriendRequestModal/FriendRequestModal'
 import { API_URL, IMG_URL } from './../../constant'
+import { PRIVATE_ROUTE } from '../../Route'
 
 export default function Friend() {
   const userId = localStorage.getItem('userId')
@@ -89,7 +90,7 @@ export default function Friend() {
   return (
     <GreenComponentWrapper>
       <Header>
-        <Link to="/">
+        <Link to={PRIVATE_ROUTE.FARM.path}>
           <img src="img/logo.png" />
         </Link>
         <FindFriendButton
