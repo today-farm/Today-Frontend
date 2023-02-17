@@ -38,6 +38,7 @@ export default function Friend() {
   const [prevfriends, setPrevFriends] = useState([])
   const [requestUsers, setRequestUsers] = useState([])
   const [editOn, setEditOn] = useState(false)
+
   const deleteFriend = (friendId: number) => {
     axios.post(
       `${API_URL}/friend/delete/${friendId}`,
@@ -58,10 +59,13 @@ export default function Friend() {
         },
       })
       .then((res) => {
-        console.log(res)
         setFriends(res.data.result.friendWithEachOtherInfos)
         setPrevFriends(res.data.result.sendRequestFriendInfos)
       })
+  }
+
+  const saveFriendId = (friendId: number) => {
+    localStorage.setItem('friendId', String(friendId))
   }
 
   useEffect(() => {
@@ -86,7 +90,7 @@ export default function Friend() {
     <GreenComponentWrapper>
       <Header>
         <Link to="/">
-          <div>로고</div>
+          <img src="img/logo.png" />
         </Link>
         <FindFriendButton
           src={'/img/icons/icon_add.png'}
@@ -133,8 +137,14 @@ export default function Friend() {
                     친구 삭제
                   </DeleteButton>
                 ) : (
-                  <Link to="">
-                    <SmallButton>농장 보기</SmallButton>
+                  <Link to="/mainfarm">
+                    <SmallButton
+                      onClick={() => {
+                        saveFriendId(x.userId)
+                      }}
+                    >
+                      농장 보기
+                    </SmallButton>
                   </Link>
                 )}
               </FriendProfile>
