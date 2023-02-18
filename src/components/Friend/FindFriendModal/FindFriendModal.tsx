@@ -51,12 +51,18 @@ export default function FindFriendModal(props: IProps) {
     }
   })
 
-  // const addFriend = () => {
-  //   axios.post(`${API_URL}/friend/add/${friendId}`, {
-  //     headers: { Authorization: `Bearer ${cookies.accessToken}` },
-  //   })
-  // }
-  //console.log(friends)
+  const addFriend = (friendId: number) => {
+    axios
+      .post(
+        `${API_URL}/friend/add/${friendId}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${cookies.accessToken}` },
+        },
+      )
+      .then((res) => alert('친구요청이 성공적으로 이루어졌습니다!'))
+      .catch((err) => console.log(err))
+  }
 
   const findFriend = () => {
     if (searchUserNickname === '') {
@@ -124,7 +130,13 @@ export default function FindFriendModal(props: IProps) {
                   alt={'profile'}
                 />
                 <NickName>{x.nickname}</NickName>
-                <SmallButton>친구 요청</SmallButton>
+                <SmallButton
+                  onClick={() => {
+                    addFriend(x.userId)
+                  }}
+                >
+                  친구 요청
+                </SmallButton>
               </FriendProfile>
             )
           })}
