@@ -72,7 +72,7 @@ function Profile(props: Iprops) {
   return (
     <GreenComponentWrapper>
       <Header>
-        <Logo>로고</Logo>
+        <img src="img/logo.png" />
         <Title>안녕하세요!</Title>
         <Title>닉네임과 프로필 사진(선택)을 등록해주세요.</Title>
       </Header>

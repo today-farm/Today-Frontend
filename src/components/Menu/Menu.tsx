@@ -6,7 +6,9 @@ import { MenuWrapper } from './style'
 function Menu() {
   return (
     <MenuWrapper>
-      <span>로고</span>
+      <Link to={PRIVATE_ROUTE.FARM.path}>
+        <img src="img/logo.png" />
+      </Link>
       <Link to={PRIVATE_ROUTE.MYPAGE.path}>
         <img src="img/icons/icon_mypage.png" />
       </Link>

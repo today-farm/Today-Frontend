@@ -17,17 +17,21 @@ import {
 } from './style'
 import CanPostInfoModal from './CanPostInfoModal/CanPostInfoModal'
 import { PRIVATE_ROUTE } from '../../Route'
-import { PUBLIC_ROUTE } from './../../Route'
 interface Iprops {
   main?: boolean
 }
 
 export default function Footer(props: Iprops) {
   const [cookies] = useCookies(['accessToken'])
+  const friendId = localStorage.getItem('friendId')
   const [openModal, setOpenModal] = useState<boolean>(false)
   const { isLoading, data } = useQuery<boolean>('todayPost', () =>
     checkPostToday(cookies.accessToken),
   )
+
+  const backMyFarm = () => {
+    localStorage.removeItem('friendId')
+  }
 
   return (
     <FooterWrapper>
@@ -71,9 +75,15 @@ export default function Footer(props: Iprops) {
         <Link to={PRIVATE_ROUTE.CALENDAR.path}>
           <Icon src="/img/icons/icon_calendar.png" />
         </Link>
-        <Link to={PRIVATE_ROUTE.FRIEND.path}>
-          <Icon src="/img/icons/icon_friends2.png" />
-        </Link>
+        {friendId ? (
+          <Link to={PRIVATE_ROUTE.FARM.path}>
+            <Icon src="/img/icons/icon_home.png" onClick={backMyFarm} />
+          </Link>
+        ) : (
+          <Link to={PRIVATE_ROUTE.FRIEND.path}>
+            <Icon src="/img/icons/icon_friends2.png" />
+          </Link>
+        )}
       </IconWrapper>
     </FooterWrapper>
   )

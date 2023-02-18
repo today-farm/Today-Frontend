@@ -28,6 +28,7 @@ import {
 import FindFriendModal from './FindFriendModal/FindFriendModal'
 import FriendRequestModal from './FriendRequestModal/FriendRequestModal'
 import { API_URL, IMG_URL } from './../../constant'
+import { PRIVATE_ROUTE } from '../../Route'
 
 export default function Friend() {
   const userId = localStorage.getItem('userId')
@@ -38,6 +39,7 @@ export default function Friend() {
   const [prevfriends, setPrevFriends] = useState([])
   const [requestUsers, setRequestUsers] = useState([])
   const [editOn, setEditOn] = useState(false)
+
   const deleteFriend = (friendId: number) => {
     axios.post(
       `${API_URL}/friend/delete/${friendId}`,
@@ -58,10 +60,14 @@ export default function Friend() {
         },
       })
       .then((res) => {
-        console.log(res)
         setFriends(res.data.result.friendWithEachOtherInfos)
         setPrevFriends(res.data.result.sendRequestFriendInfos)
       })
+  }
+
+  const saveFriendInfo = (friendId: number, friendNickname: string) => {
+    localStorage.setItem('friendId', String(friendId))
+    localStorage.setItem('friendNickname', friendNickname)
   }
 
   useEffect(() => {
@@ -85,8 +91,8 @@ export default function Friend() {
   return (
     <GreenComponentWrapper>
       <Header>
-        <Link to="/">
-          <div>로고</div>
+        <Link to={PRIVATE_ROUTE.FARM.path}>
+          <img src="img/logo.png" />
         </Link>
         <FindFriendButton
           src={'/img/icons/icon_add.png'}
@@ -133,8 +139,14 @@ export default function Friend() {
                     친구 삭제
                   </DeleteButton>
                 ) : (
-                  <Link to="">
-                    <SmallButton>농장 보기</SmallButton>
+                  <Link to="/mainfarm">
+                    <SmallButton
+                      onClick={() => {
+                        saveFriendInfo(x.userId, x.nickname)
+                      }}
+                    >
+                      농장 보기
+                    </SmallButton>
                   </Link>
                 )}
               </FriendProfile>

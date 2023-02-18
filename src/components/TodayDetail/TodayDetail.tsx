@@ -28,18 +28,24 @@ export default function TodayDetail() {
   const [todayFeeling, setTodayFeeling] = useState('')
   const [year, month, day] = creationDay.split('-')
   const userId = localStorage.getItem('userId')
+  const friendId = localStorage.getItem('friendId')
   const navigate = useNavigate()
   const params = useParams()
   const todayId = params.todayId
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/post/find-one/${todayId}/${userId}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${cookies.accessToken}`,
+      .get(
+        friendId
+          ? `${API_URL}/post/find-one/${todayId}/${friendId}`
+          : `${API_URL}/post/find-one/${todayId}/${userId}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${cookies.accessToken}`,
+          },
         },
-      })
+      )
       .then((res) => {
         setPostQuestions(res.data.result.postQuestions)
         setCreationDay(res.data.result.creationDay)
