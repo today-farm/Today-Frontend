@@ -1,3 +1,4 @@
+import { useEffect, useState, useCallback } from 'react'
 import { useQuery } from 'react-query'
 import { useCookies } from 'react-cookie'
 import { GreenComponentWrapper } from '../../style/CommonStyles'
@@ -11,21 +12,30 @@ import { getMainFarm } from './../../api'
 
 export default function MainFarm() {
   const userId = localStorage.getItem('userId')
+  const friendId = localStorage.getItem('friendId')
+  const friendNickname = localStorage.getItem('friendNickname')
   const [cookies] = useCookies(['accessToken'])
   const { isLoading, data } = useQuery<Icrops[]>('crops', () =>
-    getMainFarm(userId, cookies.accessToken),
+    friendId
+      ? getMainFarm(friendId, cookies.accessToken)
+      : getMainFarm(userId, cookies.accessToken),
   )
+
   return (
     <GreenComponentWrapper>
       <Menu />
-      <Title>{todayYearMonthDate()}</Title>
+      {friendId ? (
+        <Title>{friendNickname}님의 농장</Title>
+      ) : (
+        <Title>{todayYearMonthDate()}</Title>
+      )}
       {isLoading ? (
         <div>Loading...</div>
       ) : (
         <>
           <Field
             text={'첫 번째 하루를 기록해보세요.'}
-            cropStatus={data![0].cropStatus}
+            cropStatus={data![0]?.cropStatus}
           />
           <Field
             text={'8개의 기록이 필요해요.'}

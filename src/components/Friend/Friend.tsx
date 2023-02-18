@@ -65,8 +65,9 @@ export default function Friend() {
       })
   }
 
-  const saveFriendId = (friendId: number) => {
+  const saveFriendInfo = (friendId: number, friendNickname: string) => {
     localStorage.setItem('friendId', String(friendId))
+    localStorage.setItem('friendNickname', friendNickname)
   }
 
   useEffect(() => {
@@ -141,7 +142,7 @@ export default function Friend() {
                   <Link to="/mainfarm">
                     <SmallButton
                       onClick={() => {
-                        saveFriendId(x.userId)
+                        saveFriendInfo(x.userId, x.nickname)
                       }}
                     >
                       농장 보기

@@ -27,6 +27,7 @@ function Calender() {
   const [todaies, setTodaies] = useState<any[]>([])
   const [getMoment, setMoment] = useState(moment())
   let userId: string | null = localStorage.getItem('userId')
+  const friendId = localStorage.getItem('friendId')
   const today = getMoment // today == moment()   입니다.
   const firstWeek = today.clone().startOf('month').week()
   const lastWeek =
@@ -131,7 +132,13 @@ function Calender() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `${API_URL}/post/find-user-and-month/${userId}/${today.format('MM')}`,
+          friendId
+            ? `${API_URL}/post/find-user-and-month/${friendId}/${today.format(
+                'MM',
+              )}`
+            : `${API_URL}/post/find-user-and-month/${userId}/${today.format(
+                'MM',
+              )}`,
           {
             headers: {
               Authorization: `Bearer ${cookies.accessToken}`,
