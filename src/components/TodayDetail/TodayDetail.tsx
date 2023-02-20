@@ -112,7 +112,7 @@ export default function TodayDetail() {
           )
         })}
       </ContentWrapper>
-      {friendId !== userId || (
+      {!friendId && (
         <>
           <Link to={(PRIVATE_ROUTE.TODAY_UPDATE.path = `/update/${todayId}`)}>
             <ActiveButton>기록 수정</ActiveButton>
