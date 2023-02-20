@@ -26,12 +26,20 @@ export default function TodayDetail() {
   const [postQuestions, setPostQuestions] = useState<string[]>([])
   const [creationDay, setCreationDay] = useState('')
   const [todayFeeling, setTodayFeeling] = useState('')
+  const [canPublicAccess, setCanPulicAccess] = useState<boolean>(true)
   const [year, month, day] = creationDay.split('-')
   const userId = localStorage.getItem('userId')
   const friendId = localStorage.getItem('friendId')
   const navigate = useNavigate()
   const params = useParams()
   const todayId = params.todayId
+
+  useEffect(() => {
+    if (friendId !== userId && canPublicAccess === false) {
+      alert('이 글을 비밀글입니다!')
+      navigate(-1)
+    }
+  }, [canPublicAccess])
 
   useEffect(() => {
     axios
@@ -53,6 +61,8 @@ export default function TodayDetail() {
       })
       .catch((err) => {
         console.log(err)
+        setCanPulicAccess(err.response.data.isSuccess)
+        console.log(err.response.data.isSuccess)
       })
   }, [])
 
@@ -102,10 +112,14 @@ export default function TodayDetail() {
           )
         })}
       </ContentWrapper>
-      <Link to={(PRIVATE_ROUTE.TODAY_UPDATE.path = `/update/${todayId}`)}>
-        <ActiveButton>기록 수정</ActiveButton>
-      </Link>
-      <DeleteButton onClick={deleteToday}>기록 삭제</DeleteButton>
+      {friendId !== userId || (
+        <>
+          <Link to={(PRIVATE_ROUTE.TODAY_UPDATE.path = `/update/${todayId}`)}>
+            <ActiveButton>기록 수정</ActiveButton>
+          </Link>
+          <DeleteButton onClick={deleteToday}>기록 삭제</DeleteButton>
+        </>
+      )}
     </ComponentWrapper>
   )
 }
