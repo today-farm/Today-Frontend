@@ -17,10 +17,6 @@ import {
   DeleteButton,
 } from './style'
 import { API_URL, IMG_URL } from '../../../constant'
-import axios from 'axios'
-import { useParams } from 'react-router'
-import { Link, useNavigate } from 'react-router-dom'
-import { useCookies } from 'react-cookie'
 
 interface Iprops {
   content: string
@@ -44,14 +40,6 @@ interface Iprops {
 
 export default function QuestionAnswer(props: Iprops) {
   const ref = useRef<HTMLTextAreaElement>(null)
-  const [postQuestions, setPostQuestions] = useState<string[]>([])
-  const [display, setDisplay] = useState<string>('block')
-  const [active, setActive] = useState(false)
-  const userId = localStorage.getItem('userId')
-  const navigate = useNavigate()
-  const params = useParams()
-  const todayId = params.todayId
-  const [cookies] = useCookies(['accessToken', 'password'])
 
   useEffect(() => {
     if (ref === null || ref.current === null) {
@@ -69,18 +57,8 @@ export default function QuestionAnswer(props: Iprops) {
     ref.current.style.height = ref.current.scrollHeight + 'px'
   }, [])
 
-  // const image = useRef() as React.MutableRefObject<HTMLDivElement>
-  const image = useRef<HTMLImageElement>(null)
-
-  const notShowFile = () => {
-    console.log('hi')
-    console.log(image)
-    if (image === null || image.current === null) {
-      return
-    }
-    // console.log(image.current?.style.display)
-    image.current.style.display = 'none'
-    //console.log(image.current)
+  const notShowFile = (file: string, id: number) => {
+    file === 'image' ? props.images.splice(id, 1) : props.videos.splice(id, 1)
   }
   return (
     <ContentWrapper>
@@ -96,23 +74,17 @@ export default function QuestionAnswer(props: Iprops) {
             <PreviewImg
               ref={image}
               className={`image${id}`}
-              // style={{ display: display }}
               src={`${IMG_URL}${image.postImgUrl}`}
             />
             <DeleteButton
               src="/img/icons/icon_file_delete.png"
-              // style={{ display: display }}
               onClick={(e) => {
                 props.setDeleteImgId?.((imgId: any) => [
                   ...imgId,
                   image.postImgUrlId,
                 ])
-                // handleShowFile(e)
-                notShowFile()
+                notShowFile('image', id)
                 e.currentTarget.style.display = 'none'
-                // props.handleDeleteImage(id, props.number, 'img')
-                // setDisplay('none')
-                // setActive(!active)
               }}
             />
           </div>
@@ -121,21 +93,16 @@ export default function QuestionAnswer(props: Iprops) {
       {props.videos?.map((video: any, id: number) => {
         return (
           <div key={id}>
-            <PreviewVideo
-              // style={{ display: display }}
-              src={`${IMG_URL}${video.postVideoUrl}`}
-            />
+            <PreviewVideo src={`${IMG_URL}${video.postVideoUrl}`} />
             <DeleteButton
               src="/img/icons/icon_file_delete.png"
-              // style={{ display: display }}
               onClick={(e) => {
                 props.setDeleteVideoId?.((videoId: any) => [
                   ...videoId,
                   video.postVideoUrlId,
                 ])
+                notShowFile('video', id)
                 e.currentTarget.style.display = 'none'
-                // props.handleDeleteImage(id, props.number)
-                // setDisplay('none')
               }}
             />
           </div>
