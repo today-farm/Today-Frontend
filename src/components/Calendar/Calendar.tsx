@@ -26,7 +26,7 @@ function Calender() {
   const [cookies] = useCookies(['accessToken', 'password'])
   const [todaies, setTodaies] = useState<any[]>([])
   const [getMoment, setMoment] = useState(moment())
-  let userId: string | null = localStorage.getItem('userId')
+  const userId: string | null = localStorage.getItem('userId')
   const friendId = localStorage.getItem('friendId')
   const today = getMoment // today == moment()   입니다.
   const firstWeek = today.clone().startOf('month').week()
@@ -37,8 +37,7 @@ function Calender() {
 
   const calendarArr = () => {
     let result: any[] = []
-    let week = firstWeek
-    for (week; week <= lastWeek; week++) {
+    for (let week = firstWeek; week <= lastWeek; week++) {
       result = result.concat(
         <tr key={week}>
           {Array(7)
@@ -50,8 +49,6 @@ function Calender() {
                 .week(week)
                 .startOf('week')
                 .add(index, 'day')
-              // console.log('days' + days.format('MM'))
-              // console.log(today.format('MM'))
               if (moment().format('YYYYMMDD') === days.format('YYYYMMDD')) {
                 //오늘이면
                 return (
@@ -161,6 +158,7 @@ function Calender() {
         <DateWrapper>
           <img
             src="img/icons/calendar_icon_left.png"
+            alt="leftIconImg"
             onClick={() => {
               setMoment(getMoment.clone().subtract(1, 'month'))
             }}
@@ -168,6 +166,7 @@ function Calender() {
           <Title>{today.format('YYYY년 MM월')}</Title>
           <img
             src="img/icons/calendar_icon_right.png"
+            alt="rightIconImg"
             onClick={() => {
               setMoment(getMoment.clone().add(1, 'month'))
             }}
